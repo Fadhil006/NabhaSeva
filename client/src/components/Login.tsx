@@ -3,13 +3,29 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
+import { useLocation } from "wouter";
 import { useState } from "react";
 
 export default function Login() {
+  const [, navigate] = useLocation();
+  const { toast } = useToast();
   const [selectedRole, setSelectedRole] = useState<'patient' | 'doctor' | 'admin'>('patient');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
+  const [resetEmail, setResetEmail] = useState('');
+  const [signUpData, setSignUpData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    phone: ''
+  });
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
 
   const roles = [
     { id: 'patient' as const, label: 'Patient', icon: 'personal_injury', color: 'bg-blue-100 text-blue-800' },
@@ -17,24 +33,157 @@ export default function Login() {
     { id: 'admin' as const, label: 'Admin', icon: 'admin_panel_settings', color: 'bg-purple-100 text-purple-800' }
   ];
 
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateForm = () => {
+    const newErrors: {[key: string]: string} = {};
+    
+    if (!email) {
+      newErrors.email = 'Email is required';
+    } else if (!validateEmail(email)) {
+      newErrors.email = 'Please enter a valid email';
+    }
+    
+    if (!password) {
+      newErrors.password = 'Password is required';
+    } else if (password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const validateSignUpForm = () => {
+    const newErrors: {[key: string]: string} = {};
+    
+    if (!signUpData.name) newErrors.name = 'Name is required';
+    if (!signUpData.email) {
+      newErrors.email = 'Email is required';
+    } else if (!validateEmail(signUpData.email)) {
+      newErrors.email = 'Please enter a valid email';
+    }
+    if (!signUpData.password) {
+      newErrors.password = 'Password is required';
+    } else if (signUpData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+    }
+    if (signUpData.password !== signUpData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+    if (!signUpData.phone) {
+      newErrors.phone = 'Phone number is required';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      toast({
+        title: "Validation Error",
+        description: "Please fix the errors and try again.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setLoading(true);
     
-    // Simulate API call
+    // Simulate API call with demo credentials
     setTimeout(() => {
-      console.log('Login attempt:', { email, password, role: selectedRole });
+      const demoCredentials = {
+        'patient@demo.com': 'patient123',
+        'doctor@demo.com': 'doctor123',
+        'admin@demo.com': 'admin123'
+      };
+      
+      const validCredential = Object.entries(demoCredentials).find(
+        ([demoEmail, demoPassword]) => demoEmail === email && demoPassword === password
+      );
+      
+      if (validCredential || email.includes('demo')) {
+        toast({
+          title: "Login Successful",
+          description: `Welcome ${selectedRole}!`,
+        });
+        
+        // Navigate based on role
+        switch (selectedRole) {
+          case 'patient':
+            navigate('/patient');
+            break;
+          case 'doctor':
+            navigate('/doctor');
+            break;
+          case 'admin':
+            navigate('/admin');
+            break;
+        }
+      } else {
+        toast({
+          title: "Login Failed",
+          description: "Invalid email or password. Try demo credentials.",
+          variant: "destructive"
+        });
+      }
+      
       setLoading(false);
-      // Here you would typically redirect to the appropriate dashboard
-    }, 1000);
+    }, 1500);
   };
 
   const handleForgotPassword = () => {
-    console.log('Forgot password clicked');
+    setShowForgotPassword(true);
   };
 
-  const handleSignUp = () => {
-    console.log('Sign up clicked');
+  const handleResetPassword = () => {
+    if (!resetEmail || !validateEmail(resetEmail)) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    toast({
+      title: "Reset Link Sent",
+      description: "Password reset link has been sent to your email.",
+    });
+    setShowForgotPassword(false);
+    setResetEmail('');
+  };
+
+  const handleSignUp = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateSignUpForm()) {
+      toast({
+        title: "Validation Error",
+        description: "Please fix the errors and try again.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    toast({
+      title: "Account Created",
+      description: "Your account has been created successfully!",
+    });
+    setShowSignUp(false);
+    setSignUpData({
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      phone: ''
+    });
   };
 
   return (
@@ -51,6 +200,18 @@ export default function Login() {
             <CardTitle className="text-2xl text-center">Sign In</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
+            {/* Demo Credentials Info */}
+            <Card className="bg-blue-50 border-blue-200">
+              <CardContent className="p-3">
+                <div className="text-xs text-blue-800">
+                  <p className="font-semibold mb-1">Demo Credentials:</p>
+                  <p>Patient: patient@demo.com / patient123</p>
+                  <p>Doctor: doctor@demo.com / doctor123</p>
+                  <p>Admin: admin@demo.com / admin123</p>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Role Selection */}
             <div>
               <Label className="text-sm font-medium text-gray-700 mb-3 block">
@@ -62,7 +223,7 @@ export default function Login() {
                     key={role.id}
                     onClick={() => {
                       setSelectedRole(role.id);
-                      console.log(`Role selected: ${role.label}`);
+                      setErrors({}); // Clear errors when role changes
                     }}
                     className={`flex-1 p-3 rounded-lg border-2 transition-all hover-elevate ${
                       selectedRole === role.id
@@ -95,10 +256,14 @@ export default function Login() {
                   type="email"
                   placeholder="Enter your email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (errors.email) setErrors({...errors, email: ''});
+                  }}
+                  className={errors.email ? 'border-red-500' : ''}
                   data-testid="input-email"
                 />
+                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
               </div>
               
               <div>
@@ -108,10 +273,14 @@ export default function Login() {
                   type="password"
                   placeholder="Enter your password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    if (errors.password) setErrors({...errors, password: ''});
+                  }}
+                  className={errors.password ? 'border-red-500' : ''}
                   data-testid="input-password"
                 />
+                {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
               </div>
 
               <Button 
@@ -153,7 +322,7 @@ export default function Login() {
               <Button 
                 variant="outline" 
                 className="w-full"
-                onClick={handleSignUp}
+                onClick={() => setShowSignUp(true)}
                 data-testid="button-signup"
               >
                 Create New Account
@@ -187,6 +356,150 @@ export default function Login() {
           <p className="mt-1">Available in Hindi & English</p>
         </div>
       </div>
+
+      {/* Forgot Password Dialog */}
+      <Dialog open={showForgotPassword} onOpenChange={setShowForgotPassword}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Reset Password</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <p className="text-sm text-gray-600">
+              Enter your email address and we'll send you a link to reset your password.
+            </p>
+            <div>
+              <Label htmlFor="reset-email">Email Address</Label>
+              <Input
+                id="reset-email"
+                type="email"
+                placeholder="Enter your email"
+                value={resetEmail}
+                onChange={(e) => setResetEmail(e.target.value)}
+              />
+            </div>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                onClick={() => setShowForgotPassword(false)}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleResetPassword}
+                className="flex-1 bg-primary hover:bg-primary/90"
+              >
+                Send Reset Link
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Sign Up Dialog */}
+      <Dialog open={showSignUp} onOpenChange={setShowSignUp}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Create Account</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleSignUp} className="space-y-4">
+            <div>
+              <Label htmlFor="signup-name">Full Name</Label>
+              <Input
+                id="signup-name"
+                placeholder="Enter your full name"
+                value={signUpData.name}
+                onChange={(e) => {
+                  setSignUpData({...signUpData, name: e.target.value});
+                  if (errors.name) setErrors({...errors, name: ''});
+                }}
+                className={errors.name ? 'border-red-500' : ''}
+              />
+              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+            </div>
+            
+            <div>
+              <Label htmlFor="signup-email">Email</Label>
+              <Input
+                id="signup-email"
+                type="email"
+                placeholder="Enter your email"
+                value={signUpData.email}
+                onChange={(e) => {
+                  setSignUpData({...signUpData, email: e.target.value});
+                  if (errors.email) setErrors({...errors, email: ''});
+                }}
+                className={errors.email ? 'border-red-500' : ''}
+              />
+              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+            </div>
+            
+            <div>
+              <Label htmlFor="signup-phone">Phone Number</Label>
+              <Input
+                id="signup-phone"
+                placeholder="Enter your phone number"
+                value={signUpData.phone}
+                onChange={(e) => {
+                  setSignUpData({...signUpData, phone: e.target.value});
+                  if (errors.phone) setErrors({...errors, phone: ''});
+                }}
+                className={errors.phone ? 'border-red-500' : ''}
+              />
+              {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
+            </div>
+            
+            <div>
+              <Label htmlFor="signup-password">Password</Label>
+              <Input
+                id="signup-password"
+                type="password"
+                placeholder="Enter your password"
+                value={signUpData.password}
+                onChange={(e) => {
+                  setSignUpData({...signUpData, password: e.target.value});
+                  if (errors.password) setErrors({...errors, password: ''});
+                }}
+                className={errors.password ? 'border-red-500' : ''}
+              />
+              {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+            </div>
+            
+            <div>
+              <Label htmlFor="signup-confirm">Confirm Password</Label>
+              <Input
+                id="signup-confirm"
+                type="password"
+                placeholder="Confirm your password"
+                value={signUpData.confirmPassword}
+                onChange={(e) => {
+                  setSignUpData({...signUpData, confirmPassword: e.target.value});
+                  if (errors.confirmPassword) setErrors({...errors, confirmPassword: ''});
+                }}
+                className={errors.confirmPassword ? 'border-red-500' : ''}
+              />
+              {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
+            </div>
+
+            <div className="flex gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setShowSignUp(false)}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                className="flex-1 bg-primary hover:bg-primary/90"
+              >
+                Create Account
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
