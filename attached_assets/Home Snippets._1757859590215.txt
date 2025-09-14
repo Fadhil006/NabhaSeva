@@ -1,0 +1,702 @@
+Home Snippets.
+<html><head>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<meta charset="utf-8"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-50">
+<div class="relative flex size-full min-h-screen flex-col bg-white justify-between group/design-root overflow-x-hidden" style='font-family: Lexend, "Noto Sans", sans-serif;'>
+<div>
+<header class="flex items-center justify-between p-4 bg-white">
+<div class="w-12"></div>
+<h1 class="text-[#111715] text-lg font-bold leading-tight tracking-[-0.015em]">NabhaSeva</h1>
+<button class="flex items-center justify-center h-12 w-12 rounded-full text-[#111715] hover:bg-gray-100">
+<span class="material-symbols-outlined"> menu </span>
+</button>
+</header>
+<main class="px-4">
+<div class="flex min-h-[480px] flex-col gap-6 rounded-2xl bg-cover bg-center bg-no-repeat items-start justify-end p-6" style='background-image: linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuDa4ALaoC-RKRordvJec_9XTG6qVPwWZGJJwAyEW_AbwIpnTcK9_D3R4UjAWUy6lZL2Avdx0sTqDAURPNi3MApGolSinMe3sW9mFJXpaJEGATxozwutZZzh8BqqWkM4KFRIVTj-NMAMmvXunJXotJWAnAU4SnWngZt0RBnWz2mxncEsIrymNX7wsTZjMetPIy38QLp0RuGqlb9PRdV1hdqKzPBx29jdvdyCLJq_Gr7CZSQLU_nM3wozQyQh4Wb6DZOwCSpAUMKrdJ8");'>
+<div class="flex flex-col gap-4 text-left">
+<h2 class="text-white text-4xl font-black leading-tight tracking-tighter">Bridging rural gaps with smart care</h2>
+<p class="text-white/90 text-sm font-normal leading-normal">
+                NabhaSeva brings healthcare to your doorstep, no matter where you are. Access vital health services, connect with experts, and stay informed about your health, all
+                in your language.
+              </p>
+</div>
+<button class="flex w-full max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-12 px-5 bg-[#18a568] text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-green-700 transition-colors">
+<span class="truncate">Get Started</span>
+</button>
+</div>
+</main>
+<section class="p-4">
+<h3 class="text-[#111715] text-2xl font-bold leading-tight tracking-tighter mb-4">Why NabhaSeva?</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-3 rounded-xl border border-[#dce5e1] bg-white p-4 items-start shadow-sm">
+<span class="material-symbols-outlined text-green-600 !text-3xl"> folder_open </span>
+<h4 class="text-[#111715] text-base font-bold leading-tight">Offline Health Records</h4>
+</div>
+<div class="flex flex-col gap-3 rounded-xl border border-[#dce5e1] bg-white p-4 items-start shadow-sm">
+<span class="material-symbols-outlined text-green-600 !text-3xl"> language </span>
+<h4 class="text-[#111715] text-base font-bold leading-tight">Multilingual Support</h4>
+</div>
+<div class="flex flex-col gap-3 rounded-xl border border-[#dce5e1] bg-white p-4 items-start shadow-sm">
+<span class="material-symbols-outlined text-green-600 !text-3xl"> pill </span>
+<h4 class="text-[#111715] text-base font-bold leading-tight">Medicine Updates</h4>
+</div>
+<div class="flex flex-col gap-3 rounded-xl border border-[#dce5e1] bg-white p-4 items-start shadow-sm">
+<span class="material-symbols-outlined text-green-600 !text-3xl"> groups </span>
+<h4 class="text-[#111715] text-base font-bold leading-tight">Expert Access</h4>
+</div>
+<div class="flex flex-col gap-3 rounded-xl border border-[#dce5e1] bg-white p-4 items-start shadow-sm">
+<span class="material-symbols-outlined text-green-600 !text-3xl"> psychology </span>
+<h4 class="text-[#111715] text-base font-bold leading-tight">AI Symptom Checker</h4>
+</div>
+<div class="flex flex-col gap-3 rounded-xl border border-[#dce5e1] bg-white p-4 items-start shadow-sm">
+<span class="material-symbols-outlined text-green-600 !text-3xl"> support_agent </span>
+<h4 class="text-[#111715] text-base font-bold leading-tight">24/7 Help &amp; Support</h4>
+</div>
+</div>
+</section>
+<section class="p-4">
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1 rounded-xl p-4 bg-green-50 border border-green-100">
+<p class="text-[#111715] text-base font-medium leading-normal">Doctors</p>
+<p class="text-[#18a568] tracking-light text-3xl font-bold leading-tight">500+</p>
+</div>
+<div class="flex flex-col gap-1 rounded-xl p-4 bg-green-50 border border-green-100">
+<p class="text-[#111715] text-base font-medium leading-normal">Support</p>
+<p class="text-[#18a568] tracking-light text-3xl font-bold leading-tight">24/7</p>
+</div>
+<div class="flex flex-col gap-1 rounded-xl p-4 bg-green-50 border border-green-100">
+<p class="text-[#111715] text-base font-medium leading-normal">Hospitals &amp; Clinics</p>
+<p class="text-[#18a568] tracking-light text-3xl font-bold leading-tight">100+</p>
+</div>
+<div class="flex flex-col gap-1 rounded-xl p-4 bg-green-50 border border-green-100">
+<p class="text-[#111715] text-base font-medium leading-normal">Languages</p>
+<p class="text-[#18a568] tracking-light text-3xl font-bold leading-tight">10+</p>
+</div>
+</div>
+</section>
+</div>
+<footer class="sticky bottom-0 bg-white shadow-[0_-1px_3px_rgba(0,0,0,0.1)]">
+<nav class="flex justify-around items-center pt-2 pb-4">
+<a class="flex flex-col items-center justify-center gap-1 text-[#18a568]" href="#">
+<span class="material-symbols-outlined !text-2xl"> home </span>
+<p class="text-xs font-medium tracking-wide">Home</p>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-[#648778] hover:text-[#18a568]" href="#">
+<span class="material-symbols-outlined !text-2xl"> info </span>
+<p class="text-xs font-medium tracking-wide">About</p>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-[#648778] hover:text-[#18a568]" href="#">
+<span class="material-symbols-outlined !text-2xl"> call </span>
+<p class="text-xs font-medium tracking-wide">Contact</p>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-[#648778] hover:text-[#18a568]" href="#">
+<span class="material-symbols-outlined !text-2xl"> person </span>
+<p class="text-xs font-medium tracking-wide">Login</p>
+</a>
+</nav>
+</footer>
+</div>
+
+</body></html>
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --primary-color: #18a568;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-50">
+<div class="relative flex size-full min-h-screen flex-col bg-gray-50 justify-between group/design-root overflow-x-hidden" style='font-family: Lexend, "Noto Sans", sans-serif;'>
+<div class="flex flex-col">
+<header class="flex items-center bg-white p-4 justify-between sticky top-0 shadow-sm z-10">
+<button class="text-gray-700 flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
+<span class="material-symbols-outlined"> arrow_back </span>
+</button>
+<h1 class="text-gray-900 text-xl font-bold leading-tight tracking-tight flex-1 text-center pr-10">About Us</h1>
+</header>
+<main class="flex-1 px-4 pt-6 pb-8 space-y-8">
+<section class="bg-white rounded-lg shadow-sm p-6">
+<h2 class="text-gray-900 text-xl font-bold leading-tight tracking-tight mb-3">Our Mission</h2>
+<p class="text-gray-600 text-base font-normal leading-relaxed">
+              NabhaSeva is dedicated to providing comprehensive support and resources to individuals affected by cancer. Our mission is to empower patients and their families through
+              personalized care, education, and community engagement, ensuring they navigate their cancer journey with dignity and hope.
+            </p>
+</section>
+<section class="bg-white rounded-lg shadow-sm p-6">
+<h2 class="text-gray-900 text-xl font-bold leading-tight tracking-tight mb-4">The Minds Behind NabhaSeva</h2>
+<div class="space-y-4">
+<div>
+<h3 class="text-gray-800 text-lg font-semibold leading-tight tracking-tight mb-2">Our Visionaries</h3>
+<p class="text-gray-600 text-base font-normal leading-relaxed">
+                  Driven by a shared vision of a world where no one faces cancer alone, our founders, Dr. Anika Sharma and Mr. Rohan Verma, bring together their expertise in oncology and
+                  patient advocacy to create a supportive ecosystem for cancer patients and their families.
+                </p>
+</div>
+<div>
+<h3 class="text-gray-800 text-lg font-semibold leading-tight tracking-tight mb-2">Our Goal</h3>
+<p class="text-gray-600 text-base font-normal leading-relaxed">
+                  Our goal is to be the leading resource for cancer support, offering innovative programs and services that address the physical, emotional, and social needs of our
+                  community. We strive to foster a sense of belonging and resilience among those we serve.
+                </p>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-gray-900 text-xl font-bold leading-tight tracking-tight px-2 pb-4">Meet Our Team</h2>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex items-center gap-4 bg-white p-4 rounded-lg shadow-sm">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-16 w-16" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD5FZsPUjrly76pERJhz4kxLBfYaln4TdIfLLKdRheFfesJcFXOOydts_TWrv7gpDGhfoAVB3XeHDSHCfGHmJS6qMcY6lQzcheoyPEpjs9QD5gsN7KQqR_MpPVce8uANFuruzT8nL3q5j78C0FiMaT8WbAtCWHmIRXwFr7M_91YIOUp7Vi11zo3d9l1TkNtSIIa_6KFhhPiRhplSHiy7EzLxErqt3HoLh3-XRVxcOkVX4tVUTe6ooY1BkP_0T45ATALjA3OB2khbEo");'></div>
+<div class="flex flex-col justify-center">
+<p class="text-gray-900 text-base font-medium leading-normal">Dr. Anika Sharma</p>
+<p class="text-[var(--primary-color)] text-sm font-normal leading-normal">Chief Medical Officer</p>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white p-4 rounded-lg shadow-sm">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-16 w-16" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDMNpLfoRAfWOypJabuxfhImT16Tf-fn19LdNuoOO_ZueQDnVYciuOkl0QpiYU5t4QJl8EKtO3LLPekjXLE3oFQTeSDbN7DMPzDBTCAnY4w_wGKdbUt-FjRVwnFG0sVJN4LcdgQOjDKYzr-RDTwWIvu_X--9CsNeqNefX_bMVLCRFs9DC-cDdscRdBwJdvmRO2YW_omluCadfh1-1GSOHiYF1tbeyEGjtscrMi9cNIawYlBvz9HCF77xyGSqeR7YwFN9PgXVCU1cdA");'></div>
+<div class="flex flex-col justify-center">
+<p class="text-gray-900 text-base font-medium leading-normal">Rohan Verma</p>
+<p class="text-[var(--primary-color)] text-sm font-normal leading-normal">Executive Director</p>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white p-4 rounded-lg shadow-sm">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-16 w-16" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA4WExHrA87JCxKQECoEg3ohpWeqQeMJ62AwxcY256gE2A8aPSOSPgeMqcirc3t-_-blNkkNTfxw-8XtqwLlJAh8-yBheVPunsBKtQgUlmJ8C5UTH2KWCp71ENYaA7Ys7MjkJ5siq2ZQDbMfpJJxTf1_qvnkEPq34UTgNBns6CUoXmQhXIXytrJp_W8IbXb-yplXuuucSnYoDo2wqpbLFFozcwRJ7Nldc62owT2jLO1U0h8V3kUwdnFckFyam9lR8_cx1f6w2jsRu4");'></div>
+<div class="flex flex-col justify-center">
+<p class="text-gray-900 text-base font-medium leading-normal">Priya Patel</p>
+<p class="text-[var(--primary-color)] text-sm font-normal leading-normal">Head of Patient Support</p>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white p-4 rounded-lg shadow-sm">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-16 w-16" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAaUsPmq_j4qC2xsw60JeNLocLk3q4BgCbvOkZ7NGxUZlL1RNbbgT-lMrnWxsaFSLWPRP8kJrMCLfN4CYit1vPR8P5Pp21B0S1ZAHUWjouXTrufqhx66kbWyzP2V-qNGBdqsoCGaxvoRhaj0KbWsYTjy6ihvz1s8XY1zd6qFxRnQ-cakWzoAhkPtg1J5yhIMBq1gnmLJmfnr2_nyDKkD8pItzGCKFhW8ZqB2MCaD5QkJ5pMyVJc8H2UNExBetb1kwUGntzOvEULSNI");'></div>
+<div class="flex flex-col justify-center">
+<p class="text-gray-900 text-base font-medium leading-normal">Arjun Singh</p>
+<p class="text-[var(--primary-color)] text-sm font-normal leading-normal">Community Outreach Manager</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<footer class="sticky bottom-0 bg-white border-t border-gray-200 shadow-t-md">
+<nav class="flex justify-around items-center px-4 py-2">
+<a class="flex flex-col items-center justify-center gap-1 text-gray-500 hover:text-[var(--primary-color)] transition-colors w-1/4" href="#">
+<span class="material-symbols-outlined"> home </span>
+<p class="text-xs font-medium">Home</p>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-[var(--primary-color)] w-1/4" href="#">
+<span class="material-symbols-outlined"> info </span>
+<p class="text-xs font-bold">About</p>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-gray-500 hover:text-[var(--primary-color)] transition-colors w-1/4" href="#">
+<span class="material-symbols-outlined"> call </span>
+<p class="text-xs font-medium">Contact</p>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 text-gray-500 hover:text-[var(--primary-color)] transition-colors w-1/4" href="#">
+<span class="material-symbols-outlined"> person </span>
+<p class="text-xs font-medium">Login</p>
+</a>
+</nav>
+</footer>
+</div>
+
+</body></html>
+
+
+
+
+
+
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-50">
+<div class="relative flex size-full min-h-screen flex-col bg-white justify-between group/design-root overflow-x-hidden" style='font-family: Lexend, "Noto Sans", sans-serif;'>
+<div class="flex-grow">
+<header class="sticky top-0 z-10 flex items-center bg-white p-4 pb-3 justify-between shadow-sm">
+<button class="text-gray-700 flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-gray-100">
+<span class="material-symbols-outlined"> arrow_back </span>
+</button>
+<h1 class="text-gray-900 text-xl font-bold leading-tight tracking-tight flex-1 text-center">Contact</h1>
+<div class="size-10"></div>
+</header>
+<main class="p-6 space-y-8">
+<section>
+<h2 class="text-gray-900 text-2xl font-bold leading-tight tracking-tight mb-4">Contact Information</h2>
+<div class="divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white">
+<div class="p-4 grid grid-cols-[auto_1fr] gap-x-4 items-center">
+<span class="material-symbols-outlined text-gray-500"> mail </span>
+<div>
+<p class="text-gray-500 text-sm font-medium">Email</p>
+<p class="text-gray-800 font-medium">support@hopehealth.com</p>
+</div>
+</div>
+<div class="p-4 grid grid-cols-[auto_1fr] gap-x-4 items-center">
+<span class="material-symbols-outlined text-gray-500"> phone </span>
+<div>
+<p class="text-gray-500 text-sm font-medium">Phone</p>
+<p class="text-gray-800 font-medium">+1 (555) 123-4567</p>
+</div>
+</div>
+<div class="p-4 grid grid-cols-[auto_1fr] gap-x-4 items-center">
+<span class="material-symbols-outlined text-gray-500"> location_on </span>
+<div>
+<p class="text-gray-500 text-sm font-medium">Address</p>
+<p class="text-gray-800 font-medium">123 Health Ave, City, State, 12345</p>
+</div>
+</div>
+<div class="p-4 grid grid-cols-[auto_1fr] gap-x-4 items-center">
+<span class="material-symbols-outlined text-gray-500"> schedule </span>
+<div>
+<p class="text-gray-500 text-sm font-medium">Availability</p>
+<p class="text-gray-800 font-medium">Mon-Fri: 9am-5pm</p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-gray-900 text-2xl font-bold leading-tight tracking-tight mb-4">Get In Touch</h2>
+<form class="space-y-4">
+<div class="grid grid-cols-2 gap-4">
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-base text-gray-900 placeholder:text-gray-500 focus:border-emerald-500 focus:ring-emerald-500" placeholder="First Name"/>
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-base text-gray-900 placeholder:text-gray-500 focus:border-emerald-500 focus:ring-emerald-500" placeholder="Last Name"/>
+</div>
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-base text-gray-900 placeholder:text-gray-500 focus:border-emerald-500 focus:ring-emerald-500" placeholder="Email Address" type="email"/>
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-base text-gray-900 placeholder:text-gray-500 focus:border-emerald-500 focus:ring-emerald-500" placeholder="Subject"/>
+<textarea class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-base text-gray-900 placeholder:text-gray-500 focus:border-emerald-500 focus:ring-emerald-500" placeholder="Message" rows="5"></textarea>
+<button class="w-full cursor-pointer rounded-xl bg-[#18a568] py-3.5 text-center text-base font-bold text-white shadow-sm transition-colors hover:bg-emerald-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600" type="submit">
+                Send Message
+              </button>
+</form>
+</section>
+</main>
+</div>
+<nav class="sticky bottom-0 flex justify-around border-t border-gray-200 bg-white py-2">
+<a class="flex flex-col items-center justify-end gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined"> home </span>
+<p class="text-xs font-medium">Home</p>
+</a>
+<a class="flex flex-col items-center justify-end gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined"> info </span>
+<p class="text-xs font-medium">About</p>
+</a>
+<a class="flex flex-col items-center justify-end gap-1 text-emerald-600" href="#">
+<span class="material-symbols-outlined"> mail </span>
+<p class="text-xs font-bold">Contact</p>
+</a>
+<a class="flex flex-col items-center justify-end gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined"> person </span>
+<p class="text-xs font-medium">Login</p>
+</a>
+</nav>
+</div>
+
+</body></html>
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-50">
+<div class="relative flex size-full min-h-screen flex-col bg-white justify-between group/design-root overflow-x-hidden" style='font-family: Lexend, "Noto Sans", sans-serif;'>
+<div class="flex-grow">
+<header class="sticky top-0 z-10 flex items-center bg-white p-4 pb-3 justify-between shadow-sm">
+<button class="text-gray-700 flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-gray-100">
+<span class="material-symbols-outlined"> arrow_back </span>
+</button>
+<h1 class="text-gray-900 text-xl font-bold leading-tight tracking-tight flex-1 text-center">Contact</h1>
+<div class="size-10"></div>
+</header>
+<main class="p-6 space-y-8">
+<section>
+<h2 class="text-gray-900 text-2xl font-bold leading-tight tracking-tight mb-4">Contact Information</h2>
+<div class="divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white">
+<div class="p-4 grid grid-cols-[auto_1fr] gap-x-4 items-center">
+<span class="material-symbols-outlined text-gray-500"> mail </span>
+<div>
+<p class="text-gray-500 text-sm font-medium">Email</p>
+<p class="text-gray-800 font-medium">support@hopehealth.com</p>
+</div>
+</div>
+<div class="p-4 grid grid-cols-[auto_1fr] gap-x-4 items-center">
+<span class="material-symbols-outlined text-gray-500"> phone </span>
+<div>
+<p class="text-gray-500 text-sm font-medium">Phone</p>
+<p class="text-gray-800 font-medium">+1 (555) 123-4567</p>
+</div>
+</div>
+<div class="p-4 grid grid-cols-[auto_1fr] gap-x-4 items-center">
+<span class="material-symbols-outlined text-gray-500"> location_on </span>
+<div>
+<p class="text-gray-500 text-sm font-medium">Address</p>
+<p class="text-gray-800 font-medium">123 Health Ave, City, State, 12345</p>
+</div>
+</div>
+<div class="p-4 grid grid-cols-[auto_1fr] gap-x-4 items-center">
+<span class="material-symbols-outlined text-gray-500"> schedule </span>
+<div>
+<p class="text-gray-500 text-sm font-medium">Availability</p>
+<p class="text-gray-800 font-medium">Mon-Fri: 9am-5pm</p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<h2 class="text-gray-900 text-2xl font-bold leading-tight tracking-tight mb-4">Get In Touch</h2>
+<form class="space-y-4">
+<div class="grid grid-cols-2 gap-4">
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-base text-gray-900 placeholder:text-gray-500 focus:border-emerald-500 focus:ring-emerald-500" placeholder="First Name"/>
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-base text-gray-900 placeholder:text-gray-500 focus:border-emerald-500 focus:ring-emerald-500" placeholder="Last Name"/>
+</div>
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-base text-gray-900 placeholder:text-gray-500 focus:border-emerald-500 focus:ring-emerald-500" placeholder="Email Address" type="email"/>
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-base text-gray-900 placeholder:text-gray-500 focus:border-emerald-500 focus:ring-emerald-500" placeholder="Subject"/>
+<textarea class="form-input w-full rounded-lg border-gray-300 bg-gray-50 p-3 text-base text-gray-900 placeholder:text-gray-500 focus:border-emerald-500 focus:ring-emerald-500" placeholder="Message" rows="5"></textarea>
+<button class="w-full cursor-pointer rounded-xl bg-[#18a568] py-3.5 text-center text-base font-bold text-white shadow-sm transition-colors hover:bg-emerald-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600" type="submit">
+                Send Message
+              </button>
+</form>
+</section>
+</main>
+</div>
+<nav class="sticky bottom-0 flex justify-around border-t border-gray-200 bg-white py-2">
+<a class="flex flex-col items-center justify-end gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined"> home </span>
+<p class="text-xs font-medium">Home</p>
+</a>
+<a class="flex flex-col items-center justify-end gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined"> info </span>
+<p class="text-xs font-medium">About</p>
+</a>
+<a class="flex flex-col items-center justify-end gap-1 text-emerald-600" href="#">
+<span class="material-symbols-outlined"> mail </span>
+<p class="text-xs font-bold">Contact</p>
+</a>
+<a class="flex flex-col items-center justify-end gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined"> person </span>
+<p class="text-xs font-medium">Login</p>
+</a>
+</nav>
+</div>
+
+</body></html>
+
+
+
+
+
+
+
+
+
+<html><head>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<meta charset="utf-8"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body>
+<div class="relative flex size-full min-h-screen flex-col bg-white justify-between group/design-root overflow-x-hidden" style="--select-button-svg: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724px%27 height=%2724px%27 fill=%27rgb(100,135,120)%27 viewBox=%270 0 256 256%27%3e%3cpath d=%27M181.66,170.34a8,8,0,0,1,0,11.32l-48,48a8,8,0,0,1-11.32,0l-48-48a8,8,0,0,1,11.32-11.32L128,212.69l42.34-42.35A8,8,0,0,1,181.66,170.34Zm-96-84.68L128,43.31l42.34,42.35a8,8,0,0,0,11.32-11.32l-48-48a8,8,0,0,0-11.32,0l-48-48A8,8,0,0,0,85.66,85.66Z%27%3e%3c/path%3e%3c/svg%3e'); font-family: Lexend, &quot;Noto Sans&quot;, sans-serif;">
+<div class="flex absolute top-0 left-0 h-full w-full flex-col justify-end items-stretch bg-[#141414]/40">
+<div class="flex flex-col items-stretch rounded-t-2xl bg-white">
+<div class="flex h-5 w-full items-center justify-center pt-3">
+<div class="h-1.5 w-10 rounded-full bg-[#dce5e1]"></div>
+</div>
+<div class="flex-1 px-4 pb-6">
+<h1 class="text-[#111715] text-2xl font-bold leading-tight tracking-[-0.015em] text-center pb-1 pt-5">Create Account</h1>
+<p class="text-slate-500 text-base font-normal leading-normal pb-6 text-center">Join NabhaSeva</p>
+<div class="flex px-4 py-3">
+<div class="flex h-12 flex-1 items-center justify-center rounded-lg bg-[#f0f4f3] p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-3 has-[:checked]:bg-white has-[:checked]:shadow-[0_1px_3px_rgba(0,0,0,0.1)] has-[:checked]:text-[#111715] text-slate-500 text-sm font-medium leading-normal">
+<span class="truncate">Patient</span>
+<input checked="" class="invisible w-0" name="ec47ecc8-7199-4f42-b291-d23a3945727e" type="radio" value="Patient"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-3 has-[:checked]:bg-white has-[:checked]:shadow-[0_1px_3px_rgba(0,0,0,0.1)] has-[:checked]:text-[#111715] text-slate-500 text-sm font-medium leading-normal">
+<span class="truncate">Doctor</span>
+<input class="invisible w-0" name="ec47ecc8-7199-4f42-b291-d23a3945727e" type="radio" value="Doctor"/>
+</label>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-x-4">
+<label class="flex flex-col col-span-2">
+<span class="text-sm font-medium text-slate-700 mb-1.5 ml-1">Full Name</span>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111715] focus:outline-0 focus:ring-2 focus:ring-[#18a568] border-none bg-[#f0f4f3] h-12 placeholder:text-slate-400 p-3 text-base font-normal leading-normal" placeholder="Enter your full name" value=""/>
+</label>
+<label class="flex flex-col">
+<span class="text-sm font-medium text-slate-700 mb-1.5 ml-1 mt-4">Blood Group</span>
+<select class="form-select flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111715] focus:outline-0 focus:ring-2 focus:ring-[#18a568] border-none bg-[#f0f4f3] h-12 placeholder:text-slate-400 pl-3 pr-8 text-base font-normal leading-normal appearance-none bg-[image:--select-button-svg] bg-no-repeat bg-[center_right_0.75rem]">
+<option disabled="" selected="" value="">Select</option>
+<option value="A+">A+</option>
+<option value="A-">A-</option>
+<option value="B+">B+</option>
+<option value="B-">B-</option>
+<option value="AB+">AB+</option>
+<option value="AB-">AB-</option>
+<option value="O+">O+</option>
+<option value="O-">O-</option>
+</select>
+</label>
+<label class="flex flex-col">
+<span class="text-sm font-medium text-slate-700 mb-1.5 ml-1 mt-4">Age</span>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111715] focus:outline-0 focus:ring-2 focus:ring-[#18a568] border-none bg-[#f0f4f3] h-12 placeholder:text-slate-400 p-3 text-base font-normal leading-normal" placeholder="Your age" type="number" value=""/>
+</label>
+<label class="flex flex-col col-span-2">
+<span class="text-sm font-medium text-slate-700 mb-1.5 ml-1 mt-4">Email</span>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111715] focus:outline-0 focus:ring-2 focus:ring-[#18a568] border-none bg-[#f0f4f3] h-12 placeholder:text-slate-400 p-3 text-base font-normal leading-normal" placeholder="Enter your email" type="email" value=""/>
+</label>
+<label class="flex flex-col col-span-2">
+<span class="text-sm font-medium text-slate-700 mb-1.5 ml-1 mt-4">Phone Number</span>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111715] focus:outline-0 focus:ring-2 focus:ring-[#18a568] border-none bg-[#f0f4f3] h-12 placeholder:text-slate-400 p-3 text-base font-normal leading-normal" placeholder="Enter your phone number" type="tel" value=""/>
+</label>
+<label class="flex flex-col">
+<span class="text-sm font-medium text-slate-700 mb-1.5 ml-1 mt-4">Gender</span>
+<select class="form-select flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111715] focus:outline-0 focus:ring-2 focus:ring-[#18a568] border-none bg-[#f0f4f3] h-12 placeholder:text-slate-400 pl-3 pr-8 text-base font-normal leading-normal appearance-none bg-[image:--select-button-svg] bg-no-repeat bg-[center_right_0.75rem]">
+<option disabled="" selected="" value="">Select</option>
+<option value="Male">Male</option>
+<option value="Female">Female</option>
+<option value="Other">Other</option>
+</select>
+</label>
+<label class="flex flex-col col-span-2">
+<span class="text-sm font-medium text-slate-700 mb-1.5 ml-1 mt-4">Health History</span>
+<textarea class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111715] focus:outline-0 focus:ring-2 focus:ring-[#18a568] border-none bg-[#f0f4f3] min-h-28 placeholder:text-slate-400 p-3 text-base font-normal leading-normal" placeholder="Briefly describe your health history"></textarea>
+</label>
+<label class="flex flex-col col-span-2">
+<span class="text-sm font-medium text-slate-700 mb-1.5 ml-1 mt-4">Password</span>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111715] focus:outline-0 focus:ring-2 focus:ring-[#18a568] border-none bg-[#f0f4f3] h-12 placeholder:text-slate-400 p-3 text-base font-normal leading-normal" placeholder="Create a password" type="password" value=""/>
+</label>
+<label class="flex flex-col col-span-2">
+<span class="text-sm font-medium text-slate-700 mb-1.5 ml-1 mt-4">Confirm Password</span>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111715] focus:outline-0 focus:ring-2 focus:ring-[#18a568] border-none bg-[#f0f4f3] h-12 placeholder:text-slate-400 p-3 text-base font-normal leading-normal" placeholder="Confirm your password" type="password" value=""/>
+</label>
+</div>
+<div class="flex px-4 py-6">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 flex-1 bg-[#18a568] text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-emerald-700 transition-colors duration-200">
+<span class="truncate">Create Account</span>
+</button>
+</div>
+<p class="text-slate-500 text-sm font-normal leading-normal text-center">Already have an account? <a class="font-medium text-[#18a568] hover:underline" href="#">Sign In</a></p>
+</div>
+</div>
+</div>
+</div>
+
+</body></html>
+
+
+
+
+
+
+
+
+
+<html><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --checkbox-tick-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27white%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z%27/%3e%3c/svg%3e');
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-100">
+<div class="relative flex size-full min-h-screen flex-col bg-black/25 justify-end group/design-root overflow-x-hidden" style="font-family: Lexend, 'Noto Sans', sans-serif;">
+<div class="bg-white rounded-t-2xl pt-4">
+<div class="w-full flex justify-center mb-4">
+<div class="h-1.5 w-10 rounded-full bg-gray-300"></div>
+</div>
+<div class="px-6 py-4">
+<div class="text-center mb-6">
+<h1 class="text-2xl font-bold text-gray-900 tracking-tight">Welcome Back</h1>
+<p class="text-gray-600 mt-1">Sign in to your NabhaSeva account</p>
+</div>
+<div class="space-y-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                person
+              </span>
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 h-14 pl-10 pr-4 text-gray-900 placeholder:text-gray-500 focus:border-[#18a568] focus:ring-[#18a568]" placeholder="Phone number or email" type="text"/>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                lock
+              </span>
+<input class="form-input w-full rounded-lg border-gray-300 bg-gray-50 h-14 pl-10 pr-4 text-gray-900 placeholder:text-gray-500 focus:border-[#18a568] focus:ring-[#18a568]" placeholder="Password" type="password"/>
+</div>
+</div>
+<div class="flex items-center justify-between mt-4">
+<div class="flex items-center">
+<input class="h-5 w-5 rounded border-gray-300 text-[#18a568] focus:ring-[#18a568] checked:bg-[#18a568] checked:border-transparent checked:bg-[image:--checkbox-tick-svg]" id="remember-me" type="checkbox"/>
+<label class="ml-2 text-sm text-gray-700" for="remember-me">Remember me</label>
+</div>
+<a class="text-sm font-medium text-[#18a568] hover:text-green-700" href="#">Forgot Password?</a>
+</div>
+</div>
+<div class="px-6 pb-6 pt-8 space-y-4">
+<button class="flex w-full items-center justify-center rounded-lg h-12 px-5 bg-[#18a568] text-white text-base font-bold leading-normal tracking-wide shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#18a568]">
+            Sign In
+          </button>
+<div class="text-center">
+<a class="text-sm font-medium text-[#18a568] hover:text-green-700" href="#">Create Account</a>
+</div>
+</div>
+</div>
+</div>
+
+</body></html>
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --primary-50: #f0fdf6;
+        --primary-100: #dcfce7;
+        --primary-200: #bbf7d0;
+        --primary-300: #86efac;
+        --primary-400: #4ade80;
+        --primary-500: #22c55e;
+        --primary-600: #16a34a;
+        --primary-700: #15803d;
+        --primary-800: #166534;
+        --primary-900: #14532d;
+        --primary-950: #052e16;
+        --secondary-50: #f8fafc;
+        --secondary-100: #f1f5f9;
+        --secondary-200: #e2e8f0;
+        --secondary-300: #cbd5e1;
+        --secondary-400: #94a3b8;
+        --secondary-500: #64748b;
+        --secondary-600: #475569;
+        --secondary-700: #334155;
+        --secondary-800: #1e293b;
+        --secondary-900: #0f172a;
+        --secondary-950: #020617;
+      }
+      body {
+        font-family: 'Lexend', sans-serif;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-secondary-900/50">
+<div class="relative flex size-full min-h-screen flex-col justify-end bg-transparent">
+<div class="flex h-full w-full flex-col justify-end">
+<div class="flex flex-col items-stretch rounded-t-3xl bg-secondary-50 px-4 pt-4 pb-8 sm:px-6">
+<div class="mx-auto mb-4 h-1.5 w-12 flex-shrink-0 rounded-full bg-secondary-200"></div>
+<div class="text-left">
+<h1 class="text-2xl font-bold tracking-tight text-secondary-900">Reset Password</h1>
+<p class="mt-2 text-secondary-600">Enter your email or phone number to receive a reset link.</p>
+</div>
+<form class="mt-8 flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-medium text-secondary-700" for="email-phone">Email or Phone Number</label>
+<input class="form-input w-full rounded-xl border-secondary-300 bg-white px-4 py-3 text-secondary-900 placeholder:text-secondary-400 focus:border-primary-500 focus:ring-primary-500" id="email-phone" name="email-phone" placeholder="e.g., name@example.com" type="text"/>
+</div>
+<div class="mt-2 flex flex-col gap-4">
+<button class="flex w-full cursor-pointer items-center justify-center rounded-xl bg-primary-600 px-5 py-3.5 text-base font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600" type="submit">Send Reset Link</button>
+<a class="text-center text-sm font-medium text-primary-600 hover:text-primary-500" href="#">Remember your password? Sign In</a>
+</div>
+</form>
+</div>
+</div>
+</div>
+
+</body></html>
+

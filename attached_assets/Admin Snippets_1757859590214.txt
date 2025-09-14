@@ -1,0 +1,589 @@
+Admin Snippets
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<title>Admin Dashboard</title>
+<style type="text/tailwindcss">
+    :root {
+      --primary-color: #9fdf20;
+      --background-color: #f8fafc;
+      --card-background: #ffffff;
+      --text-primary: #111827;
+      --text-secondary: #6b7280;
+      --border-color: #e5e7eb;
+      --active-nav: #111827;
+      --inactive-nav: #9ca3af;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-[var(--background-color)]">
+<div class="relative flex size-full min-h-screen flex-col justify-between group/design-root">
+<div class="flex-grow">
+<header class="bg-[var(--background-color)] sticky top-0 z-10 px-4 pt-6 pb-4">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-[var(--text-primary)]">menu</span>
+<h1 class="text-xl font-bold text-[var(--text-primary)]">Dashboard</h1>
+<div class="w-6"></div>
+</div>
+</header>
+<main class="p-4">
+<section>
+<h2 class="text-2xl font-bold text-[var(--text-primary)] mb-4">Overview</h2>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-[var(--card-background)] p-4 rounded-xl shadow-sm">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-[var(--primary-color)]">medication</span>
+<h3 class="text-base font-semibold text-[var(--text-primary)]">Doctors</h3>
+</div>
+<p class="text-3xl font-bold text-[var(--text-primary)]">125</p>
+</div>
+<div class="bg-[var(--card-background)] p-4 rounded-xl shadow-sm">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-[var(--primary-color)]">personal_injury</span>
+<h3 class="text-base font-semibold text-[var(--text-primary)]">Patients</h3>
+</div>
+<p class="text-3xl font-bold text-[var(--text-primary)]">540</p>
+</div>
+<div class="bg-[var(--card-background)] p-4 rounded-xl shadow-sm col-span-2">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-[var(--primary-color)]">local_pharmacy</span>
+<h3 class="text-base font-semibold text-[var(--text-primary)]">Pharmacies</h3>
+</div>
+<p class="text-3xl font-bold text-[var(--text-primary)]">75</p>
+</div>
+</div>
+</section>
+<section class="mt-8">
+<h2 class="text-2xl font-bold text-[var(--text-primary)] mb-4">Activity</h2>
+<div class="space-y-4">
+<div class="bg-[var(--card-background)] p-4 rounded-xl shadow-sm flex items-center justify-between">
+<div>
+<h3 class="text-base font-semibold text-[var(--text-primary)]">Active Users</h3>
+<p class="text-3xl font-bold text-[var(--text-primary)]">480</p>
+</div>
+<span class="material-symbols-outlined text-4xl text-[var(--primary-color)]">monitoring</span>
+</div>
+<div class="bg-[var(--card-background)] p-4 rounded-xl shadow-sm flex items-center justify-between">
+<div>
+<h3 class="text-base font-semibold text-[var(--text-primary)]">Pending Registrations</h3>
+<p class="text-3xl font-bold text-[var(--text-primary)]">15</p>
+</div>
+<span class="material-symbols-outlined text-4xl text-[var(--primary-color)]">pending_actions</span>
+</div>
+</div>
+</section>
+</main>
+</div>
+<footer class="sticky bottom-0 bg-white/80 backdrop-blur-sm border-t border-[var(--border-color)]">
+<nav class="flex justify-around px-2 py-2">
+<a class="flex flex-col items-center justify-center gap-1 w-1/5 text-[var(--active-nav)]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-xs font-medium">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 w-1/5 text-[var(--inactive-nav)]" href="#">
+<span class="material-symbols-outlined">stethoscope</span>
+<span class="text-xs font-medium">Doctors</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 w-1/5 text-[var(--inactive-nav)]" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-xs font-medium">Patients</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 w-1/5 text-[var(--inactive-nav)]" href="#">
+<span class="material-symbols-outlined">apartment</span>
+<span class="text-xs font-medium">Pharmacies</span>
+</a>
+<a class="flex flex-col items-center justify-center gap-1 w-1/5 text-[var(--inactive-nav)]" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-xs font-medium">Settings</span>
+</a>
+</nav>
+</footer>
+</div>
+
+</body></html>
+
+<html><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-50">
+<div class="relative flex size-full min-h-screen flex-col bg-white justify-between group/design-root" style='font-family: Lexend, "Noto Sans", sans-serif;'>
+<div class="flex-grow">
+<div class="flex items-center bg-white p-4 justify-between sticky top-0 z-10 shadow-sm">
+<button class="text-gray-600 flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-gray-100">
+<span class="material-symbols-outlined">
+              arrow_back
+            </span>
+</button>
+<h2 class="text-gray-900 text-xl font-bold leading-tight tracking-tight flex-1 text-center pr-10">Doctors</h2>
+</div>
+<div class="p-4 space-y-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+              search
+            </span>
+<input class="form-input w-full rounded-full border-gray-200 bg-gray-100 pl-10 pr-4 py-3 text-base font-normal leading-normal text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Search doctors" type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 px-4 hover:bg-gray-200">
+<p class="text-gray-800 text-sm font-medium leading-normal">Specialization</p>
+<span class="material-symbols-outlined text-gray-600">
+                arrow_drop_down
+              </span>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-100 px-4 hover:bg-gray-200">
+<p class="text-gray-800 text-sm font-medium leading-normal">Status</p>
+<span class="material-symbols-outlined text-gray-600">
+                arrow_drop_down
+              </span>
+</button>
+</div>
+</div>
+<div class="divide-y divide-gray-100">
+<div class="flex items-center gap-4 bg-white p-4 justify-between hover:bg-gray-50 cursor-pointer">
+<div class="flex items-center gap-4">
+<img alt="Dr. Ethan Carter" class="rounded-full h-12 w-12 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE5oPlczdmRSMrjKO7nQszDL9udWyVMftcaYDKYiQthy0PC9819ybORI2kFP-jZU4SyaVqrRjcyIZ42ZZlvkR68ARW2BtwQ2x9hkiuflHg6sKAwdXKg_nYmLPaq3DadnVdM9Bqy5t2layQQlI0m8Pur8KckdqLUDz-FpYeX7k0G62a7P6dLjIoqJAWLIx9n4wAhS7V1TwKNJ_s-M3eXuM-2iaityU26SAjNF2uoGnc6g1la1AW2Wj7_gGXogcJe8lwLsEYT7EOWqc"/>
+<div class="flex flex-col justify-center">
+<p class="text-gray-900 text-base font-semibold leading-normal">Dr. Ethan Carter</p>
+<p class="text-gray-500 text-sm font-normal leading-normal">Cardiology</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">Active</span>
+<span class="material-symbols-outlined text-gray-400">
+                chevron_right
+                </span>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white p-4 justify-between hover:bg-gray-50 cursor-pointer">
+<div class="flex items-center gap-4">
+<img alt="Dr. Olivia Bennett" class="rounded-full h-12 w-12 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3Fv8CANp8GU3I8UU4iIDh2xpxCVT3uGVUHY4B4CBUyYCeNVJ5yZKIHpenW5B7AcGw1Cw2AQzYrk5m0ODzl4cnK9IzNIMeharPM5nxOlGI3dTolCoDLBj1Uk5LkjRphhLzc8fBfjOAntlnGrbahNjvSZaXCabU2ZOhbwBzVWQWR7s6PnfxJOzvcjLbgXWL_SWPk3MmORRiAckqUPddtsNmQoAXjvp9CC2OEOOe9HqaKazbf82kWtHHNF6wp7MrA6WEdtGNX3slz0o"/>
+<div class="flex flex-col justify-center">
+<p class="text-gray-900 text-base font-semibold leading-normal">Dr. Olivia Bennett</p>
+<p class="text-gray-500 text-sm font-normal leading-normal">Pediatrics</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">Active</span>
+<span class="material-symbols-outlined text-gray-400">
+                chevron_right
+                </span>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white p-4 justify-between hover:bg-gray-50 cursor-pointer">
+<div class="flex items-center gap-4">
+<img alt="Dr. Noah Thompson" class="rounded-full h-12 w-12 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw6eMPEsm9DqHODEbeKGm9yZxUjXwXL3VWG-W0OskWsroSbjHAXueWJd5N_vR8YThNl63Ky-S2QfS7dhEV5TeTgkCBqcRn2JB9Ur3739jDFZEBxDbYPV82W9pgqrtIBDRcoKnUiihNYn8ssVdWTTiix95caDnXjp6FiqZGJw2Yq-4QiNeUYYnqQWMUFY4KANoeOGTGBpPzZlCm-27U2pWF8iOZLaxXew7FcjjJa6kmeFuH4zMc4S-ag4svvyxZqgLwkJMiqJ2icRA"/>
+<div class="flex flex-col justify-center">
+<p class="text-gray-900 text-base font-semibold leading-normal">Dr. Noah Thompson</p>
+<p class="text-gray-500 text-sm font-normal leading-normal">Dermatology</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800">Pending</span>
+<span class="material-symbols-outlined text-gray-400">
+                chevron_right
+                </span>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white p-4 justify-between hover:bg-gray-50 cursor-pointer">
+<div class="flex items-center gap-4">
+<img alt="Dr. Sophia Clark" class="rounded-full h-12 w-12 object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLlzNP3gR3cZptuXrZFQRD2bTE-PQr5JaEsgMxMBud5Vcbi3m80OMxLvmHYOC9Fbh17JbwaXwT9dZijokML73wnAIZntZdV0IrINp9y-bdAViVn_VH3sPEPWf6zFykZ3WWHtO1pZc2s1iPwA8H-IxNYFWE0N1Y8Eqt5YUSDfFDtCSYW0iH6wxh2XV_y2ig4G-RwtgFnZZjBn5YdCxgdVOGvSBXSRxpT9IUBhnLzqwk0VNxA8TaKbWmoAbUMXbkjH1FhrRz0S5RZ08"/>
+<div class="flex flex-col justify-center">
+<p class="text-gray-900 text-base font-semibold leading-normal">Dr. Sophia Clark</p>
+<p class="text-gray-500 text-sm font-normal leading-normal">Neurology</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800">Inactive</span>
+<span class="material-symbols-outlined text-gray-400">
+                chevron_right
+                </span>
+</div>
+</div>
+</div>
+</div>
+<div class="sticky bottom-0">
+<div class="fixed bottom-24 right-4 z-20">
+<button class="flex h-16 w-16 cursor-pointer items-center justify-center rounded-full bg-[#9fdf20] text-white shadow-lg transition-transform duration-200 hover:scale-105">
+<span class="material-symbols-outlined text-4xl">
+              add
+            </span>
+</button>
+</div>
+<div class="flex border-t border-gray-200 bg-white px-2 pt-2 pb-5">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-xs font-medium">Dashboard</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 rounded-lg bg-[#9fdf20]/20 text-[#9fdf20]" href="#">
+<span class="material-symbols-outlined">stethoscope</span>
+<p class="text-xs font-bold">Doctors</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined">personal_injury</span>
+<p class="text-xs font-medium">Patients</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined">local_pharmacy</span>
+<p class="text-xs font-medium">Pharmacies</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-xs font-medium">Settings</p>
+</a>
+</div>
+</div>
+</div>
+
+</body></html>
+
+<html><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --primary-50: #f7fdea;
+        --primary-100: #eefad4;
+        --primary-200: #dff6ad;
+        --primary-300: #c9ef7c;
+        --primary-400: #b4e851;
+        --primary-500: #9fdf20;
+        --primary-600: #82c813;
+        --primary-700: #629712;
+        --primary-800: #497116;
+        --primary-900: #395717;
+        --primary-950: #1c2c08;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-50">
+<div class="relative flex size-full min-h-screen flex-col bg-white justify-between group/design-root" style='font-family: Lexend, "Noto Sans", sans-serif;'>
+<div class="flex flex-col">
+<header class="flex items-center justify-between bg-white p-4 sticky top-0 z-10 border-b border-gray-100">
+<div class="w-10"></div>
+<h1 class="text-lg font-bold text-gray-900">Patients</h1>
+<button class="flex h-10 w-10 items-center justify-center rounded-full bg-primary-500 text-white">
+<span class="material-symbols-outlined text-2xl"> add </span>
+</button>
+</header>
+<main class="flex-1 overflow-y-auto">
+<div class="p-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"> search </span>
+<input class="w-full rounded-lg border-gray-200 bg-gray-100 py-3 pl-10 pr-4 text-sm focus:border-primary-500 focus:ring-primary-500" placeholder="Search patients" type="text"/>
+</div>
+<div class="mt-4 flex gap-2">
+<button class="flex items-center gap-1.5 rounded-lg bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700">
+<span>Status</span>
+<span class="material-symbols-outlined text-base"> expand_more </span>
+</button>
+<button class="flex items-center gap-1.5 rounded-lg bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700">
+<span>Location</span>
+<span class="material-symbols-outlined text-base"> expand_more </span>
+</button>
+</div>
+</div>
+<div class="divide-y divide-gray-100">
+<a class="flex items-center gap-4 p-4 hover:bg-gray-50" href="#">
+<img alt="Liam Carter" class="h-12 w-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSmzR8-iSeLYIKIfjN9DVkTHVed1SS3JsHSSH94bhxwSbt-b4jJHzXb_pb04-RJT7Mo27agfyrnujT-gaau5auNNrCH9j1MOAF4qOdiIef9rUO24PNwpe8IPiXviQiX873jowG4dcmLJtvAr2roxZizM6Bpkm3NRDmgS3qWHoN_mS9-8e6kyz-_uFDrzp9LTSt9WFRpkK9h7KO1_UlGeKeckaXRGkRxr3oVKQ1aq4l-iusUcnoswC0SyL45o6yL-ZlxsosQt3Avn0"/>
+<div class="flex-1">
+<p class="font-medium text-gray-900">Liam Carter</p>
+<div class="flex items-center gap-2 text-sm text-gray-500">
+<span>ID: 12345</span>
+<span class="text-gray-300">|</span>
+<span class="inline-flex items-center gap-1.5 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+<span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                    Active
+                  </span>
+</div>
+</div>
+<span class="material-symbols-outlined text-gray-400"> chevron_right </span>
+</a>
+<a class="flex items-center gap-4 p-4 hover:bg-gray-50" href="#">
+<img alt="Sophia Bennett" class="h-12 w-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaSK8rEqDxxGhSXynutoWrKC9YPxPq11DxhKNdyJp-1sfi2ZjOYbPY1cjTGlryqn_plPFdlzud1lYApzSbgWa-I-lK-lkg6S6vQDHUVqwltfk8_RqJQGPmpffH8XY1tr5OZBM6PF4SywY8Hzbkiom_Jp4ZwhaTU74TcO46OdQZ6pGBQj8ScE0vA-waVVnt-T9K6WBCBwqKI2O8Zg_SAH19wZnzPkUMg9NsAcvcfB32pawRqLQ9PbeT_SIkVtZEkY6ukgnax2Omizo"/>
+<div class="flex-1">
+<p class="font-medium text-gray-900">Sophia Bennett</p>
+<div class="flex items-center gap-2 text-sm text-gray-500">
+<span>ID: 67890</span>
+<span class="text-gray-300">|</span>
+<span class="inline-flex items-center gap-1.5 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
+<span class="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
+                    New
+                  </span>
+</div>
+</div>
+<span class="material-symbols-outlined text-gray-400"> chevron_right </span>
+</a>
+<a class="flex items-center gap-4 p-4 hover:bg-gray-50" href="#">
+<img alt="Ethan Harper" class="h-12 w-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8nW5EnE85BwKZErV9qFOvLwB6cipzY81hRldknfkI8xp12gd5Dk4Y5I-Pk0aGsXFAsLus3xUER2ox3fQXEBFKEdnxseLGkG0ppTj6YM0U_wJ6Gc4wLLZRzXU_RPyNyee7AFQLkXsV2DuisFXGPDbTnUSuS0giv95SeSKzDaJMLks5dwCvQWPyHXlqis0OiV-gw9H_smCCprPdQK0DgJFB2Dal7itw_N9Ev5Ytnh6Tl_9gtcugIrD27XpFlWB031bFTjhQ1KaLeEI"/>
+<div class="flex-1">
+<p class="font-medium text-gray-900">Ethan Harper</p>
+<div class="flex items-center gap-2 text-sm text-gray-500">
+<span>ID: 24680</span>
+<span class="text-gray-300">|</span>
+<span class="inline-flex items-center gap-1.5 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+<span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                    Active
+                  </span>
+</div>
+</div>
+<span class="material-symbols-outlined text-gray-400"> chevron_right </span>
+</a>
+<a class="flex items-center gap-4 p-4 hover:bg-gray-50" href="#">
+<img alt="Olivia Reed" class="h-12 w-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLWOxPULVgza-5TSQwio69nzQ6TzPENa5VUO67YacU9VYyjjIOSqehzt6zLOjISGRE2QaSnY-inhk-7720YrtSy2d1znvaHcTbepczl5qo_23CkJ0PyjS8e83x5ijppV0Vl-fhBQdqPmYfJqP3tA3KtTwM2zAGa4L7uIBRNuWwQgpTmckAM0j18bSWnHYBTFEoOBaF2c2hHV8zr4gQkoPchJG3T41cwrLI1QQW_Wt4W9KSJfhb1IMk8eKy0ebPmh_z-ZDv9XwF5hI"/>
+<div class="flex-1">
+<p class="font-medium text-gray-900">Olivia Reed</p>
+<div class="flex items-center gap-2 text-sm text-gray-500">
+<span>ID: 13579</span>
+<span class="text-gray-300">|</span>
+<span class="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-800">
+<span class="h-1.5 w-1.5 rounded-full bg-gray-400"></span>
+                    Inactive
+                  </span>
+</div>
+</div>
+<span class="material-symbols-outlined text-gray-400"> chevron_right </span>
+</a>
+<a class="flex items-center gap-4 p-4 hover:bg-gray-50" href="#">
+<img alt="Noah Foster" class="h-12 w-12 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCba43GhYFmpJMgOxGJxLXe5_1hsgFRcpB9sxmpPD6dOyBbCdkT6pbE5BYIBnpKcIyNM8vxTCTu1txPUhRzDxmntvzGgWF5mZEJGC3-GQSdDHDX9E_hikxRZwUWDmBWY6xszQoQk5p-XF_v3s1LDixagcGEuK6FubHa5hw61Sy97FrnJlIVFlv3qBvFU6mP7jTdfe7__6ORS7bU3HngBfpRrJymQbBchOTBHLAakUozYeDzUYcoYMeMNxrPKZUfBfm8N3BNHHKFU8E"/>
+<div class="flex-1">
+<p class="font-medium text-gray-900">Noah Foster</p>
+<div class="flex items-center gap-2 text-sm text-gray-500">
+<span>ID: 97531</span>
+<span class="text-gray-300">|</span>
+<span class="inline-flex items-center gap-1.5 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+<span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
+                    Active
+                  </span>
+</div>
+</div>
+<span class="material-symbols-outlined text-gray-400"> chevron_right </span>
+</a>
+</div>
+</main>
+</div>
+<footer class="sticky bottom-0 border-t border-gray-100 bg-white/80 pb-3 pt-2 backdrop-blur-sm">
+<nav class="flex justify-around">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined text-2xl"> dashboard </span>
+<span class="text-xs font-medium">Dashboard</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined text-2xl"> stethoscope </span>
+<span class="text-xs font-medium">Doctors</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-primary-500" href="#">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;"> groups </span>
+<span class="text-xs font-medium">Patients</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined text-2xl"> storefront </span>
+<span class="text-xs font-medium">Pharmacies</span>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined text-2xl"> settings </span>
+<span class="text-xs font-medium">Settings</span>
+</a>
+</nav>
+</footer>
+</div>
+
+</body></html>
+
+
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style type="text/tailwindcss">
+      :root {
+        --primary-color: #9fdf20;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-50" style='font-family: Inter, "Noto Sans", sans-serif;'>
+<div class="relative flex size-full min-h-screen flex-col justify-between group/design-root overflow-x-hidden">
+<div class="flex flex-col">
+<header class="bg-white p-4 pb-2">
+<div class="flex items-center justify-between">
+<button class="text-gray-800 flex h-10 w-10 items-center justify-center">
+<span class="material-symbols-outlined"> arrow_back </span>
+</button>
+<h1 class="text-gray-900 text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pr-10">
+              Pharmacies
+            </h1>
+</div>
+<div class="px-0 py-3">
+<div class="relative">
+<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+<span class="material-symbols-outlined text-gray-500">
+                  search
+                </span>
+</div>
+<input class="form-input w-full rounded-full border-gray-200 bg-gray-100 py-3 pl-10 pr-4 text-sm text-gray-900 placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500" placeholder="Search pharmacies" type="text"/>
+</div>
+</div>
+<div class="flex gap-3 overflow-x-auto pb-2">
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full border border-gray-200 bg-white px-4">
+<p class="text-gray-700 text-sm font-medium leading-normal">
+                Status
+              </p>
+<span class="material-symbols-outlined text-gray-600 text-base">
+                expand_more
+              </span>
+</button>
+<button class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full border border-gray-200 bg-white px-4">
+<p class="text-gray-700 text-sm font-medium leading-normal">
+                Location
+              </p>
+<span class="material-symbols-outlined text-gray-600 text-base">
+                expand_more
+              </span>
+</button>
+</div>
+</header>
+<main class="flex-1 space-y-4 p-4">
+<div class="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+<div class="h-16 w-16 shrink-0 rounded-lg bg-cover bg-center bg-no-repeat" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAYQzqYqFosGHbZXWiFW_lgsPm_wwWJbPLZSevhl68WgWtdriKiTnD3KYt7PSNeeD-in9G1jVhvG4hF5Kj6t0_SAhqp9QCUDWjSbD8IUly1yfLDQSjasYd1SFhpW9iWMTwku4Hi2heclhLFTqKXvbcJO9XXI9bswbMoq_nLYEEi9VsXhSyEZPd-jcCPX4lvcc_OEs3uQX1Hs1l7lbYrj2dHSJ-O75EcGPkCCzwiLxVm4fc4N-rS4NHDKug_2oS1VcMW8Gazs-5iLAw");'></div>
+<div class="flex-1">
+<p class="text-base font-semibold leading-normal text-gray-900 line-clamp-1">
+                HealthPlus Pharmacy
+              </p>
+<p class="text-sm font-normal text-gray-500 line-clamp-2">
+                123 Main St, Anytown
+              </p>
+</div>
+<div class="flex items-center gap-2">
+<div class="h-3 w-3 rounded-full bg-green-500"></div>
+<span class="text-sm font-medium text-green-700">Approved</span>
+</div>
+</div>
+<div class="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+<div class="h-16 w-16 shrink-0 rounded-lg bg-cover bg-center bg-no-repeat" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBBdjeX9VpN8qedN0RArTJqQupZMjueAjxXiJzQUarKLhQUBy-pxvNhocjGsicnJ9I7xPXKDIJb3afRxuaRYwjrJa8xW-FKnhpO3C7ZavtWmJchXlwKhUub8wgWEkDh8n2dFDhvGUUsUzuq46BOMO34IBnR7euDH09gUUPtEIE2L2LCbnyG7DgUy9ciPGFrauvrwloqVO3PRapL2uFf1vYW6V0QVR4jcImNY0V09MI3ekkgfRD7YmXrA_7kNB_Ndnwqa_Cx22iFmsE");'></div>
+<div class="flex-1">
+<p class="text-base font-semibold leading-normal text-gray-900 line-clamp-1">
+                MediCare Pharmacy
+              </p>
+<p class="text-sm font-normal text-gray-500 line-clamp-2">
+                456 Oak Ave, Anytown
+              </p>
+</div>
+<div class="flex items-center gap-2">
+<div class="h-3 w-3 rounded-full bg-yellow-500"></div>
+<span class="text-sm font-medium text-yellow-700">Pending</span>
+</div>
+</div>
+<div class="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+<div class="h-16 w-16 shrink-0 rounded-lg bg-cover bg-center bg-no-repeat" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCqc95kYoOiisD4MYZc34u4nZGTescsH5eYGielffpr41g9RmI6aG2lZz4F3Za6Q8ig626MYqUxBFdJ8p0T6fcLZs3BxKz6YlMttYhQpgBwtS_rLooVAO_nuC8GIdBQa1TkHYm6mDJ3BXTFejnBq_blBa3-gQX9n4h_0oMRuwtFydBaoPbDIL2OK-519w_7YA6IB6FqThJ3sfs8na8nJv8U6EiMUzqvyHXu7FV4y2SlgERDLEHbM1ygHK8vFv9j4u2QpyyLJF7ZJk8");'></div>
+<div class="flex-1">
+<p class="text-base font-semibold leading-normal text-gray-900 line-clamp-1">
+                CareFirst Pharmacy
+              </p>
+<p class="text-sm font-normal text-gray-500 line-clamp-2">
+                789 Pine Ln, Anytown
+              </p>
+</div>
+<div class="flex items-center gap-2">
+<div class="h-3 w-3 rounded-full bg-green-500"></div>
+<span class="text-sm font-medium text-green-700">Approved</span>
+</div>
+</div>
+<div class="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+<div class="h-16 w-16 shrink-0 rounded-lg bg-cover bg-center bg-no-repeat" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD8p4bs8AaK56YoLcVvvAGG6A8h7bwTIEbqbbpxkCpD0ZiYJpe3F064LxnP8hzpMz28CowjIHjLXNOl_WYrfi9avvJIab99airltzIuEhcgYFxo6F0ZaSwilqg-VyajLaBejx2ZhVLk2KbmctP7iRuATMAQUaBGPtTLdpiwH-GH0nBJMiT5IcClbi05c4E6l9UHz9a22rMzGQLMpKnzl71fGnam8dmDWC03Kf2qHbwkeqsdQe6__XxVAw3w4s560ypC951n4xXJwWI");'></div>
+<div class="flex-1">
+<p class="text-base font-semibold leading-normal text-gray-900 line-clamp-1">
+                Wellness Pharmacy
+              </p>
+<p class="text-sm font-normal text-gray-500 line-clamp-2">
+                101 Elm Rd, Anytown
+              </p>
+</div>
+<div class="flex items-center gap-2">
+<div class="h-3 w-3 rounded-full bg-red-500"></div>
+<span class="text-sm font-medium text-red-700">Rejected</span>
+</div>
+</div>
+</main>
+</div>
+<footer class="sticky bottom-0 bg-white">
+<div class="flex justify-around border-t border-gray-200 px-4 pb-2 pt-2">
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined"> home </span>
+<p class="text-xs font-medium leading-normal tracking-[0.015em]">
+              Dashboard
+            </p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined"> stethoscope </span>
+<p class="text-xs font-medium leading-normal tracking-[0.015em]">
+              Doctors
+            </p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined"> group </span>
+<p class="text-xs font-medium leading-normal tracking-[0.015em]">
+              Patients
+            </p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-[var(--primary-color)]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;"> pill </span>
+<p class="text-xs font-bold leading-normal tracking-[0.015em]">
+              Pharmacies
+            </p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-end gap-1 text-gray-500" href="#">
+<span class="material-symbols-outlined"> settings </span>
+<p class="text-xs font-medium leading-normal tracking-[0.015em]">
+              Settings
+            </p>
+</a>
+</div>
+<div class="h-4 bg-white"></div>
+</footer>
+</div>
+
+</body></html>
+
