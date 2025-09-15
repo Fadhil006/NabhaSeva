@@ -1,46 +1,28 @@
-## Dev Mode
-# terminal 1
-```bash
-uvicorn main:app --reload --port 5000
-```
-
-# terminal 2
-```bash
-npm run dev
-```
-Frontend → http://localhost:5173
-Backend → http://localhost:5000
-API calls proxied.
-
-## Production Mode 
-```bash
-npm run build
-ENV=production uvicorn main:app --host 0.0.0.0 --port 5000
-```
-📘 NabhaSeva – Full Documentation
-🔹 Overview
+# NabhaSeva – Documentation
+## Overview
 
 NabhaSeva is a progressive web application designed for healthcare/pharmacy use.
 It uses:
 
-Frontend: React + Vite + TailwindCSS + shadcn/ui
+<> Frontend: React + Vite + TailwindCSS + shadcn/ui
 
-Backend: Migrated from Node.js (Express) to Python (FastAPI)
+<> Backend: Migrated from Node.js (Express) to Python (FastAPI)
 
-Database: PostgreSQL (via Drizzle ORM originally, now SQLAlchemy/Pydantic)
+<> Database: PostgreSQL (via Drizzle ORM originally, now SQLAlchemy/Pydantic)
 
 The app is optimized for mobile display, works offline (PWA), and supports APIs for authentication and data storage.
-
-🔹 Project Structure
+## Project Structure
+```
 NabhaSeva/
 ├── client/              # React frontend (Vite-based)
 │   ├── src/             # Main React source code
 │   └── index.html       # Entry HTML file
 │
 ├── shared/              # Shared schemas between frontend & backend
-│   └── schema.ts        # Zod/Drizzle schemas for users
+│   └── schemas.py       # Defines Pydantic models for request & response validation. These are not tied to the database. Example: UserCreate, UserResponse.
+│   └── models.py        # Defines database models using an ORM (e.g., SQLAlchemy). These map directly to tables in the DB (users, patients, etc).
 │
-├── backend-node/        # (OLD) Express.js backend
+├── backend-node/        # (OLD) Express.js backend -> discontd.
 │   ├── index.ts
 │   ├── routes.ts
 │   ├── storage.ts
@@ -49,8 +31,8 @@ NabhaSeva/
 ├── backend-py/          # (NEW) FastAPI backend (converted)
 │   ├── main.py          # Entry point
 │   ├── routes.py        # API routes
-│   ├── storage.py       # In-memory / DB storage layer
-│   └── schemas.py       # Pydantic schemas
+│   └── storage.py       # In-memory / DB storage layer
+│          
 │
 ├── public/              # Static assets
 ├── dist/                # Production build output
@@ -61,9 +43,10 @@ NabhaSeva/
 ├── drizzle.config.ts    # DB config (Node world)
 ├── requirements.txt     # Python backend deps
 └── README.md            # Documentation
+```
 
-🔹 Frontend (React + Vite)
-Entry point
+# Frontend (React + Vite)
+## Entry point
 
 client/src/main.tsx mounts the React app.
 
@@ -71,30 +54,31 @@ TailwindCSS + shadcn UI used for styling.
 
 Multilingual & offline support integrated.
 
-Dev setup
+## Dev setup
 
-Run:
-
+#### Run:
+```bash
 cd NabhaSeva
 npm install
 npm run dev
-
+```
 
 This starts Vite dev server at http://localhost:5173.
 
 API calls (to /api/...) are proxied to FastAPI backend.
 
-Build
+#### Build:
+```bash
 npm run build
-
+```
 
 Outputs static files to dist/public/.
 
-🔹 Backend (Python – FastAPI)
+# Backend (Python – FastAPI)
 
 We replaced Express.js (index.ts, routes.ts, storage.ts, vite.ts) with FastAPI equivalents:
-
-main.py
+### main.py
+```python
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from routes import router as api_router
@@ -134,8 +118,9 @@ async def get_user(user_id: str):
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
-
-storage.py
+```
+### storage.py
+```python
 import uuid
 from schemas import User, UserCreate
 
@@ -153,8 +138,9 @@ class MemStorage:
         return self.users.get(uid)
 
 storage = MemStorage()
-
-schemas.py
+```
+### schemas.py
+```python 
 from pydantic import BaseModel
 
 class UserCreate(BaseModel):
@@ -163,19 +149,18 @@ class UserCreate(BaseModel):
 
 class User(UserCreate):
     id: str
+```
+## Run backend
 
-Run backend
-
-Install deps:
-
+#### Install deps:
+```bash
 pip install fastapi uvicorn
-
-
-Run server:
-
+```
+#### Run server:
+```bash
 uvicorn main:app --reload --port 5000
-
-🔹 Changes (Node → Python)
+```
+## Changes (Node → Python)
 
 Express → FastAPI
 
@@ -191,6 +176,29 @@ Drizzle ORM → Pydantic + (optional SQLAlchemy)
 
 Vite middleware (vite.ts) removed → replaced with:
 
-Dev: run Vite + FastAPI separately
+#### Dev: run Vite + FastAPI separately
 
-Prod: serve built frontend via StaticFiles
+#### Prod: serve built frontend via StaticFiles
+<hr>  
+
+# Dev Mode
+## terminal 1
+```bash
+uvicorn main:app --reload --port 5000
+```
+
+## terminal 2
+```bash
+npm run dev
+```
+Frontend → http://localhost:5173
+<br>
+Backend → http://localhost:5000
+<br>
+API calls proxied.
+
+# Production Mode 
+```bash
+npm run build
+ENV=production uvicorn main:app --host 0.0.0.0 --port 5000
+```
