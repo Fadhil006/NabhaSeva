@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function PatientPortal() {
   const [activeTab, setActiveTab] = useState('home');
@@ -25,7 +25,22 @@ export default function PatientPortal() {
     { text: "Hello! I'm your AI Health Assistant. How can I help you today?", sender: 'ai' }
   ]);
   const [currentMessage, setCurrentMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
+
+  // Auto scroll to bottom when new messages are added
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chatMessages]);
+
+  // Auto focus input when component mounts or when user starts typing
+  useEffect(() => {
+    if (activeTab === 'assistant') {
+      inputRef.current?.focus();
+    }
+  }, [activeTab]);
 
   const doctors = [
     {
@@ -253,26 +268,45 @@ export default function PatientPortal() {
     }
   };
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (!currentMessage.trim()) return;
     
-    const newMessages = [
-      ...chatMessages,
-      { text: currentMessage, sender: 'user' as const },
-      { text: getAIResponse(currentMessage), sender: 'ai' as const }
-    ];
-    setChatMessages(newMessages);
+    const userMessage = { text: currentMessage, sender: 'user' as const };
+    setChatMessages(prev => [...prev, userMessage]);
+    const messageToSend = currentMessage;
     setCurrentMessage('');
+    setIsLoading(true);
+    
+    try {
+      const response = await fetch('http://localhost:5001/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          message: messageToSend
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to get response from server');
+      }
+
+      const data = await response.json();
+      const aiMessage = { text: data.reply, sender: 'ai' as const };
+      setChatMessages(prev => [...prev, aiMessage]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      const errorMessage = { text: "Sorry, I'm having trouble connecting. Please try again later.", sender: 'ai' as const };
+      setChatMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const getAIResponse = (message: string) => {
-    const responses = [
-      "I understand your concern. For accurate medical advice, please consult with a qualified healthcare provider.",
-      "That's a good question! Based on general health guidelines, I'd recommend speaking with your doctor about this.",
-      "Thank you for sharing. While I can provide general health information, it's important to get personalized advice from a medical professional.",
-      "I can help with general health information. For specific symptoms or concerns, please consult your healthcare provider."
-    ];
-    return responses[Math.floor(Math.random() * responses.length)];
+    // This function is no longer used since sendMessage is now async
+    return "Loading...";
   };
 
   const navItems = [
@@ -732,15 +766,15 @@ export default function PatientPortal() {
         {activeTab === 'assistant' && (
           <>
             {/* AI Chat Interface */}
-            <Card className="h-96">
-              <CardHeader>
+            <Card className="h-80">
+              <CardHeader className="pb-2">
                 <CardTitle className="flex items-center gap-2">
                   <span className="material-symbols-outlined text-purple-500">smart_toy</span>
                   AI Health Assistant
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-4 flex flex-col h-full">
-                <div className="flex-1 overflow-y-auto space-y-3 mb-4 max-h-64">
+                <div className="flex-1 overflow-y-auto space-y-3 mb-4 pr-2" style={{ maxHeight: '200px' }}>
                   {chatMessages.map((message, index) => (
                     <div key={index} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
                       <div className={`max-w-xs px-3 py-2 rounded-lg text-sm ${
@@ -748,22 +782,40 @@ export default function PatientPortal() {
                           ? 'bg-primary text-white' 
                           : 'bg-gray-100 text-gray-900'
                       }`}>
-                        {message.text}
+                        {message.sender === 'ai' ? (
+                          <div dangerouslySetInnerHTML={{ __html: message.text }} />
+                        ) : (
+                          message.text
+                        )}
                       </div>
                     </div>
                   ))}
+                  {isLoading && (
+                    <div className="flex justify-start">
+                      <div className="bg-gray-100 text-gray-900 max-w-xs px-3 py-2 rounded-lg text-sm">
+                        <div className="flex items-center space-x-1">
+                          <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
+                          <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce delay-75"></div>
+                          <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce delay-150"></div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  <div ref={chatEndRef} />
                 </div>
                 <div className="flex gap-2">
                   <Input
+                    ref={inputRef}
                     placeholder="Ask me about your health..."
                     value={currentMessage}
                     onChange={(e) => setCurrentMessage(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                    onKeyPress={(e) => e.key === 'Enter' && !isLoading && sendMessage()}
+                    disabled={isLoading}
                     data-testid="input-chat-message"
                   />
                   <Button 
                     onClick={sendMessage} 
-                    disabled={!currentMessage.trim()}
+                    disabled={!currentMessage.trim() || isLoading}
                     data-testid="button-send-message"
                   >
                     <span className="material-symbols-outlined">send</span>
