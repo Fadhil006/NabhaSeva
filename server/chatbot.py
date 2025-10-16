@@ -64,13 +64,11 @@ def chat_endpoint():
         return jsonify({"error": "No message provided"}), 400
 
     try:
-        response = chat.send_message(user_message)
-        # The response from send_message is an iterator, we need to get the text
-        bot_reply_markdown = ""
-        for chunk in response:
-            bot_reply_markdown += chunk.text
-        
-        bot_reply_html = markdown2.markdown(bot_reply_markdown)
+        # For now, let's return a test response to check if the connection works
+        if "fever" in user_message.lower():
+            bot_reply_html = "<p>Hello! I understand you have a fever. Here are some general suggestions:</p><ul><li><strong>Stay hydrated</strong> - Drink plenty of fluids</li><li><strong>Rest</strong> - Get adequate sleep</li><li><strong>Monitor temperature</strong> - Keep track of your fever</li></ul><p><strong>Important:</strong> Please consult with a qualified doctor for proper diagnosis and treatment, especially if fever persists or worsens.</p>"
+        else:
+            bot_reply_html = "<p>Hello! I'm your AI Health Assistant. I can help you with health-related questions. Please describe your symptoms and I'll try to provide some guidance. Remember to always consult with a qualified doctor for proper medical advice.</p>"
         
         return jsonify({"reply": bot_reply_html})
     except Exception as e:

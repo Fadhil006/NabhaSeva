@@ -21,7 +21,7 @@ export default function PatientPortal() {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [selectedRecord, setSelectedRecord] = useState<any>(null);
-  const [chatMessages, setChatMessages] = useState<{text: string, sender: 'user' | 'ai'}[]>([
+  const [chatMessages, setChatMessages] = useState<{ text: string, sender: 'user' | 'ai' }[]>([
     { text: "Hello! I'm your AI Health Assistant. How can I help you today?", sender: 'ai' }
   ]);
   const [currentMessage, setCurrentMessage] = useState('');
@@ -166,18 +166,18 @@ export default function PatientPortal() {
   ];
 
   const features = [
-    { 
-      icon: 'folder_shared', 
-      title: 'Health Records', 
-      description: 'View your medical history.', 
+    {
+      icon: 'folder_shared',
+      title: 'Health Records',
+      description: 'View your medical history.',
       link: 'View Records →',
       color: 'text-blue-500',
       action: () => setActiveTab('records')
     },
-    { 
-      icon: 'smart_toy', 
-      title: 'AI Health Assistant', 
-      description: 'Personalized health insights.', 
+    {
+      icon: 'smart_toy',
+      title: 'AI Health Assistant',
+      description: 'Personalized health insights.',
       link: 'Chat Now →',
       color: 'text-purple-500',
       action: () => setActiveTab('assistant')
@@ -189,12 +189,12 @@ export default function PatientPortal() {
     const today = new Date();
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
-    
+
     // Empty cells for days before the 1st
     for (let i = 0; i < firstDayOfMonth; i++) {
       days.push({ day: null, isCurrentMonth: false });
     }
-    
+
     // Days of the month
     for (let day = 1; day <= daysInMonth; day++) {
       const cellDate = new Date(currentYear, currentMonth, day);
@@ -202,25 +202,25 @@ export default function PatientPortal() {
       todayDate.setHours(0, 0, 0, 0);
       const cellDateNorm = new Date(cellDate);
       cellDateNorm.setHours(0, 0, 0, 0);
-      
-      days.push({ 
-        day, 
-        isCurrentMonth: true, 
+
+      days.push({
+        day,
+        isCurrentMonth: true,
         isToday: cellDateNorm.getTime() === todayDate.getTime(),
         isPast: cellDateNorm < todayDate
       });
     }
-    
+
     return days;
   };
 
   const filteredDoctors = doctors.filter(doctor => {
     const matchesSearch = doctor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         doctor.specialty.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesFilter = searchFilter === 'all' || 
-                         (searchFilter === 'available' && doctor.available) ||
-                         doctor.specialty.toLowerCase().includes(searchFilter.toLowerCase());
-    
+      doctor.specialty.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesFilter = searchFilter === 'all' ||
+      (searchFilter === 'available' && doctor.available) ||
+      doctor.specialty.toLowerCase().includes(searchFilter.toLowerCase());
+
     return matchesSearch && matchesFilter;
   });
 
@@ -270,20 +270,20 @@ export default function PatientPortal() {
 
   const sendMessage = async () => {
     if (!currentMessage.trim()) return;
-    
+
     const userMessage = { text: currentMessage, sender: 'user' as const };
     setChatMessages(prev => [...prev, userMessage]);
     const messageToSend = currentMessage;
     setCurrentMessage('');
     setIsLoading(true);
-    
+
     try {
       const response = await fetch('http://localhost:5001/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           message: messageToSend
         }),
       });
@@ -335,12 +335,12 @@ export default function PatientPortal() {
             )}
           </div>
           <h1 className="text-xl font-bold text-gray-800 flex-1 text-center">
-            {activeTab === 'home' ? 'My Health' : 
-             activeTab === 'consult' ? 'Book Appointment' :
-             activeTab === 'records' ? 'Health Records' :
-             activeTab === 'assistant' ? 'Health Assistant' :
-             activeTab === 'pharmacy' ? 'Pharmacy' :
-             activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
+            {activeTab === 'home' ? 'My Health' :
+              activeTab === 'consult' ? 'Book Appointment' :
+                activeTab === 'records' ? 'Health Records' :
+                  activeTab === 'assistant' ? 'Health Assistant' :
+                    activeTab === 'pharmacy' ? 'Pharmacy' :
+                      activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
           </h1>
           <div className="flex w-12 items-center justify-end">
             {activeTab === 'home' && (
@@ -371,7 +371,7 @@ export default function PatientPortal() {
                         <p className="text-sm text-gray-500">Next Appointment</p>
                         <p className="text-lg font-bold text-gray-900 mt-1">{bookedAppointments[bookedAppointments.length - 1].doctor.name}</p>
                         <p className="text-sm text-gray-500 mt-1">{bookedAppointments[bookedAppointments.length - 1].date} at {bookedAppointments[bookedAppointments.length - 1].time}</p>
-                        <Button 
+                        <Button
                           className="mt-4 bg-teal-500 hover:bg-teal-600 text-white w-full"
                           onClick={() => toast({ title: "Video Call", description: `Joining consultation with ${bookedAppointments[bookedAppointments.length - 1].doctor.name}...` })}
                           data-testid="button-join-consultation"
@@ -385,7 +385,7 @@ export default function PatientPortal() {
                         <p className="text-sm text-gray-500">No Upcoming Appointments</p>
                         <p className="text-lg font-bold text-gray-900 mt-1">Book your next consultation</p>
                         <p className="text-sm text-gray-500 mt-1">Stay connected with healthcare</p>
-                        <Button 
+                        <Button
                           className="mt-4 bg-primary hover:bg-primary/90 text-white w-full"
                           onClick={() => setActiveTab('consult')}
                           data-testid="button-book-appointment"
@@ -398,10 +398,10 @@ export default function PatientPortal() {
                   </div>
                   <div className="flex-shrink-0">
                     <Avatar className="h-24 w-24">
-                      <AvatarImage src={bookedAppointments.length > 0 
+                      <AvatarImage src={bookedAppointments.length > 0
                         ? bookedAppointments[bookedAppointments.length - 1].doctor.avatar
                         : "https://images.unsplash.com/photo-1594824388862-a062f5652a75?w=100&h=100&fit=crop&crop=face"} />
-                      <AvatarFallback>{bookedAppointments.length > 0 
+                      <AvatarFallback>{bookedAppointments.length > 0
                         ? bookedAppointments[bookedAppointments.length - 1].doctor.name.split(' ').map(n => n[0]).join('')
                         : 'Dr'}</AvatarFallback>
                     </Avatar>
@@ -425,9 +425,8 @@ export default function PatientPortal() {
                       <p className="text-xs text-gray-500">
                         {feature.description}
                       </p>
-                      <span className={`text-sm font-medium mt-auto pt-2 hover:underline ${
-                        feature.color.replace('text-', 'text-')
-                      }`}>
+                      <span className={`text-sm font-medium mt-auto pt-2 hover:underline ${feature.color.replace('text-', 'text-')
+                        }`}>
                         {feature.link}
                       </span>
                     </CardContent>
@@ -455,7 +454,7 @@ export default function PatientPortal() {
                     <p className="text-sm text-gray-500 font-medium mt-2">
                       Next Camp: September 25th, 2024
                     </p>
-                    <Button 
+                    <Button
                       className="mt-4 bg-orange-500 hover:bg-orange-600 text-white w-full"
                       onClick={() => toast({ title: "Health Camp", description: "More information about upcoming health camps sent to your email." })}
                       data-testid="button-learn-more"
@@ -506,7 +505,7 @@ export default function PatientPortal() {
                 </div>
               </div>
               <div className="col-span-3">
-                <select 
+                <select
                   className="h-12 w-full rounded-xl bg-gray-100 border-none text-sm px-3"
                   value={searchFilter}
                   onChange={(e) => setSearchFilter(e.target.value)}
@@ -571,7 +570,7 @@ export default function PatientPortal() {
                           <p className="text-sm text-gray-600">
                             Next: {doctor.nextSlot}
                           </p>
-                          <Button 
+                          <Button
                             size="sm"
                             className={doctor.available ? 'bg-primary hover:bg-primary/90' : ''}
                             variant={doctor.available ? 'default' : 'secondary'}
@@ -605,9 +604,9 @@ export default function PatientPortal() {
               </CardHeader>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between mb-4">
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
+                  <Button
+                    variant="ghost"
+                    size="icon"
                     onClick={() => navigateMonth('prev')}
                     data-testid="button-prev-month"
                   >
@@ -616,16 +615,16 @@ export default function PatientPortal() {
                   <p className="text-gray-900 text-base font-bold leading-tight text-center">
                     {new Date(currentYear, currentMonth).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
                   </p>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
+                  <Button
+                    variant="ghost"
+                    size="icon"
                     onClick={() => navigateMonth('next')}
                     data-testid="button-next-month"
                   >
                     <span className="material-symbols-outlined">chevron_right</span>
                   </Button>
                 </div>
-                
+
                 {/* Calendar Header */}
                 <div className="grid grid-cols-7 text-center mb-2">
                   {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, index) => (
@@ -634,23 +633,22 @@ export default function PatientPortal() {
                     </p>
                   ))}
                 </div>
-                
+
                 {/* Calendar Days */}
                 <div className="grid grid-cols-7 gap-1">
                   {generateCalendarDays().map((dateObj, index) => (
                     <button
                       key={index}
-                      className={`h-10 text-sm font-medium hover-elevate ${
-                        !dateObj.isCurrentMonth 
-                          ? 'text-gray-400 cursor-not-allowed' 
-                          : dateObj.isPast
+                      className={`h-10 text-sm font-medium hover-elevate ${!dateObj.isCurrentMonth
                           ? 'text-gray-400 cursor-not-allowed'
-                          : selectedDate === dateObj.day
-                          ? 'bg-primary text-white rounded-full'
-                          : dateObj.isToday
-                          ? 'bg-blue-100 text-blue-800 rounded-full'
-                          : 'text-gray-900 hover:bg-gray-100 rounded-full'
-                      }`}
+                          : dateObj.isPast
+                            ? 'text-gray-400 cursor-not-allowed'
+                            : selectedDate === dateObj.day
+                              ? 'bg-primary text-white rounded-full'
+                              : dateObj.isToday
+                                ? 'bg-blue-100 text-blue-800 rounded-full'
+                                : 'text-gray-900 hover:bg-gray-100 rounded-full'
+                        }`}
                       onClick={() => {
                         if (dateObj.isCurrentMonth && dateObj.day && !dateObj.isPast) {
                           setSelectedDate(dateObj.day);
@@ -662,7 +660,7 @@ export default function PatientPortal() {
                     </button>
                   ))}
                 </div>
-                
+
                 {selectedDate && (
                   <div className="mt-4">
                     <p className="text-sm font-medium mb-2">Available Time Slots:</p>
@@ -705,18 +703,18 @@ export default function PatientPortal() {
                 <div className="space-y-3">
                   {healthRecords.map((record) => (
                     <Card key={record.id} className="hover-elevate cursor-pointer"
-                          onClick={() => {
-                            setSelectedRecord(record);
-                            setShowHealthRecord(true);
-                          }}
-                          data-testid={`card-health-record-${record.id}`}>
+                      onClick={() => {
+                        setSelectedRecord(record);
+                        setShowHealthRecord(true);
+                      }}
+                      data-testid={`card-health-record-${record.id}`}>
                       <CardContent className="p-4">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
                               <span className="material-symbols-outlined text-primary">
-                                {record.type === 'Consultation' ? 'stethoscope' : 
-                                 record.type === 'Lab Report' ? 'science' : 'vaccines'}
+                                {record.type === 'Consultation' ? 'stethoscope' :
+                                  record.type === 'Lab Report' ? 'science' : 'vaccines'}
                               </span>
                               <h3 className="font-semibold text-gray-900">{record.type}</h3>
                             </div>
@@ -777,11 +775,10 @@ export default function PatientPortal() {
                 <div className="flex-1 overflow-y-auto space-y-3 mb-4 pr-2" style={{ maxHeight: '200px' }}>
                   {chatMessages.map((message, index) => (
                     <div key={index} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                      <div className={`max-w-xs px-3 py-2 rounded-lg text-sm ${
-                        message.sender === 'user' 
-                          ? 'bg-primary text-white' 
+                      <div className={`max-w-xs px-3 py-2 rounded-lg text-sm ${message.sender === 'user'
+                          ? 'bg-primary text-white'
                           : 'bg-gray-100 text-gray-900'
-                      }`}>
+                        }`}>
                         {message.sender === 'ai' ? (
                           <div dangerouslySetInnerHTML={{ __html: message.text }} />
                         ) : (
@@ -813,8 +810,8 @@ export default function PatientPortal() {
                     disabled={isLoading}
                     data-testid="input-chat-message"
                   />
-                  <Button 
-                    onClick={sendMessage} 
+                  <Button
+                    onClick={sendMessage}
                     disabled={!currentMessage.trim() || isLoading}
                     data-testid="button-send-message"
                   >
@@ -833,11 +830,11 @@ export default function PatientPortal() {
                 { title: 'Exercise Advice', icon: 'fitness_center', color: 'text-blue-500', message: 'What exercises are good for beginners?' }
               ].map((item, index) => (
                 <Card key={index} className="hover-elevate cursor-pointer"
-                      onClick={() => {
-                        setCurrentMessage(item.message);
-                        setTimeout(() => sendMessage(), 100);
-                      }}
-                      data-testid={`quick-action-${item.title.toLowerCase().replace(' ', '-')}`}>
+                  onClick={() => {
+                    setCurrentMessage(item.message);
+                    setTimeout(() => sendMessage(), 100);
+                  }}
+                  data-testid={`quick-action-${item.title.toLowerCase().replace(' ', '-')}`}>
                   <CardContent className="p-4 flex items-center gap-3">
                     <span className={`material-symbols-outlined text-2xl ${item.color}`}>
                       {item.icon}
@@ -866,7 +863,7 @@ export default function PatientPortal() {
                       <p className="text-sm text-gray-600">Manage your medicine orders and refills</p>
                     </div>
                   </div>
-                  <Button 
+                  <Button
                     className="w-full bg-green-500 hover:bg-green-600 text-white"
                     onClick={() => toast({ title: "Order Placed", description: "Your medicine order has been placed successfully!" })}
                     data-testid="button-order-medicines"
@@ -890,8 +887,8 @@ export default function PatientPortal() {
                       </div>
                       <div className="flex items-center justify-between">
                         <p className="text-xs text-gray-500">{prescription.duration} remaining</p>
-                        <Button 
-                          size="sm" 
+                        <Button
+                          size="sm"
                           variant="outline"
                           onClick={() => toast({ title: "Reorder Placed", description: `${prescription.medicine} reorder confirmed. Expected delivery: 2-3 days.` })}
                           data-testid={`button-reorder-${prescription.id}`}
@@ -912,7 +909,7 @@ export default function PatientPortal() {
                   { title: 'Health Products', icon: 'inventory_2', action: () => toast({ title: "Health Store", description: "Browse vitamins, supplements, and wellness products now available!" }) }
                 ].map((service, index) => (
                   <Card key={`service-${index}`} className="hover-elevate cursor-pointer" onClick={service.action}
-                        data-testid={`pharmacy-service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}>
+                    data-testid={`pharmacy-service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}>
                     <CardContent className="p-4 flex items-center gap-3">
                       <span className="material-symbols-outlined text-xl text-primary">
                         {service.icon}
@@ -957,16 +954,16 @@ export default function PatientPortal() {
                   <p className="font-medium">Time: {selectedTimeSlot}</p>
                 </div>
                 <div className="flex gap-2">
-                  <Button 
-                    variant="outline" 
-                    onClick={() => setShowBookingConfirm(false)} 
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowBookingConfirm(false)}
                     className="flex-1"
                     data-testid="button-cancel-booking"
                   >
                     Cancel
                   </Button>
-                  <Button 
-                    onClick={confirmBooking} 
+                  <Button
+                    onClick={confirmBooking}
                     className="flex-1 bg-primary hover:bg-primary/90"
                     data-testid="button-confirm-booking"
                   >
@@ -1013,8 +1010,8 @@ export default function PatientPortal() {
                     )}
                   </div>
                 </div>
-                <Button 
-                  onClick={() => setShowHealthRecord(false)} 
+                <Button
+                  onClick={() => setShowHealthRecord(false)}
                   className="w-full"
                   data-testid="button-close-record"
                 >
@@ -1032,9 +1029,8 @@ export default function PatientPortal() {
           {navItems.map((item) => (
             <button
               key={item.id}
-              className={`flex flex-col items-center justify-center gap-1 w-1/5 hover-elevate ${
-                activeTab === item.id ? 'text-teal-500' : 'text-gray-500'
-              }`}
+              className={`flex flex-col items-center justify-center gap-1 w-1/5 hover-elevate ${activeTab === item.id ? 'text-teal-500' : 'text-gray-500'
+                }`}
               onClick={() => setActiveTab(item.id)}
               data-testid={`nav-${item.id}`}
             >

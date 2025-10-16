@@ -38,7 +38,7 @@ const HealthAssistant = () => {
             </Card>
           </DialogTrigger>
         </div>
-        
+
         <Chatbot chatType={chatType} />
       </Dialog>
     </div>

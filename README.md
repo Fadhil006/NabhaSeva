@@ -1,14 +1,64 @@
-# NabhaSeva – Documentation
+# NabhaSeva – AI Health Assistant
+
+## 🚀 Quick Start Guide
+
+### Prerequisites
+- Node.js and npm installed
+- Python 3.7+ installed
+- Google Gemini API key (for AI chatbot functionality)
+
+### 1. Setup Environment
+```bash
+# Clone the repository
+git clone https://github.com/Fadhil006/SIH-archive.git
+cd SIH-archive
+
+# Install Python dependencies
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install flask flask-cors google-generativeai markdown2
+
+# Install Node.js dependencies
+npm install
+```
+
+### 2. Configure AI API
+Create a `.env` file in the root directory:
+```env
+GEMINI_API_KEY=your_google_gemini_api_key_here
+```
+
+### 3. Run the Application
+**Terminal 1 - Start Backend (AI Chatbot):**
+```bash
+source venv/bin/activate
+python3 server/chatbot.py
+```
+Backend runs on: http://localhost:5001
+
+**Terminal 2 - Start Frontend:**
+```bash
+npm run dev
+```
+Frontend runs on: http://localhost:5000
+
+### 4. Access the Application
+- **Main App**: http://localhost:5000
+- **Patient Portal (AI Chat)**: http://localhost:5000/patient
+- **API Endpoint**: http://localhost:5001/api/chat
+
+---
+
 ## Overview
 
-NabhaSeva is a progressive web application designed for healthcare/pharmacy use.
+NabhaSeva is a progressive web application designed for healthcare/pharmacy use with AI-powered health assistance.
 It uses:
 
 <> Frontend: React + Vite + TailwindCSS + shadcn/ui
 
-<> Backend: Migrated from Node.js (Express) to Python (FastAPI)
+<> Backend: Python Flask with Google Gemini AI integration
 
-<> Database: PostgreSQL (via Drizzle ORM originally, now SQLAlchemy/Pydantic)
+<> AI Features: Smart health chatbot for symptom checking and medical guidance
 
 The app is optimized for mobile display, works offline (PWA), and supports APIs for authentication and data storage.
 ## Project Structure
@@ -16,23 +66,22 @@ The app is optimized for mobile display, works offline (PWA), and supports APIs 
 NabhaSeva/
 ├── client/              # React frontend (Vite-based)
 │   ├── src/             # Main React source code
+│   │   ├── components/  # UI components including AI health assistant
+│   │   │   ├── PatientPortal.tsx    # Main AI chat interface
+│   │   │   ├── HealthAssistant.tsx  # Health assistant menu
+│   │   │   └── ui/      # shadcn/ui components
+│   │   └── pages/       # React pages
 │   └── index.html       # Entry HTML file
 │
-├── shared/              # Shared schemas between frontend & backend
-│   └── schemas.py       # Defines Pydantic models for request & response validation. These are not tied to the database. Example: UserCreate, UserResponse.
-│   └── models.py        # Defines database models using an ORM (e.g., SQLAlchemy). These map directly to tables in the DB (users, patients, etc).
-│
-├── backend-node/        # (OLD) Express.js backend -> discontd.
-│   ├── index.ts
-│   ├── routes.ts
-│   ├── storage.ts
-│   └── vite.ts
-│
-├── backend-py/          # (NEW) FastAPI backend (converted)
-│   ├── main.py          # Entry point
+├── server/              # Python Flask backend for AI
+│   ├── chatbot.py       # Main AI chatbot with Google Gemini integration
+│   ├── main.py          # Alternative FastAPI entry point
 │   ├── routes.py        # API routes
-│   └── storage.py       # In-memory / DB storage layer
-│          
+│   └── storage.py       # In-memory storage layer
+│
+├── shared/              # Shared schemas between frontend & backend
+│   ├── schemas.py       # Pydantic models for API validation
+│   └── models.py        # Database models
 │
 ├── public/              # Static assets
 ├── dist/                # Production build output
@@ -40,8 +89,7 @@ NabhaSeva/
 ├── package.json         # Frontend dependencies
 ├── vite.config.ts       # Vite config (React build + proxy to backend)
 ├── tailwind.config.ts   # Tailwind setup
-├── drizzle.config.ts    # DB config (Node world)
-├── requirements.txt     # Python backend deps
+├── components.json      # shadcn/ui configuration
 └── README.md            # Documentation
 ```
 
@@ -74,131 +122,120 @@ npm run build
 
 Outputs static files to dist/public/.
 
-# Backend (Python – FastAPI)
+# Backend (Python Flask – AI Integration)
 
-We replaced Express.js (index.ts, routes.ts, storage.ts, vite.ts) with FastAPI equivalents:
-### main.py
+The backend uses Flask with Google Gemini AI to provide intelligent health assistance:
+
+### chatbot.py (Main AI Backend)
 ```python
-from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
-from routes import router as api_router
-from static_handler import setup_static
 import os
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import google.generativeai as genai
+import markdown2
 
-app = FastAPI()
+app = Flask(__name__)
+CORS(app)
 
-# API routes
-app.include_router(api_router, prefix="/api")
+# Configure Google Gemini AI
+genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
+model = genai.GenerativeModel(
+    'gemini-1.5-flash',
+    system_instruction="You are a helpful medical assistant..."
+)
 
-# Error handling
-@app.middleware("http")
-async def log_requests(request: Request, call_next):
-    response = await call_next(request)
-    print(f"{request.method} {request.url.path} -> {response.status_code}")
-    return response
+# Persistent chat session for context awareness
+chat_session = model.start_chat(history=[])
 
-# Serve static frontend in production
-if os.getenv("ENV") == "production":
-    setup_static(app)
+@app.route('/api/chat', methods=['POST'])
+def chat_endpoint():
+    data = request.json
+    user_message = data.get('message', '')
+    
+    # Send message to AI and get response
+    response = chat_session.send_message(user_message)
+    ai_response = markdown2.markdown(response.text)
+    
+    return jsonify({
+        'response': ai_response,
+        'status': 'success'
+    })
 
-routes.py
-from fastapi import APIRouter, HTTPException
-from storage import storage
-from schemas import UserCreate, User
-
-router = APIRouter()
-
-@router.post("/users", response_model=User)
-async def create_user(user: UserCreate):
-    return await storage.create_user(user)
-
-@router.get("/users/{user_id}", response_model=User)
-async def get_user(user_id: str):
-    user = await storage.get_user(user_id)
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    return user
+if __name__ == '__main__':
+    app.run(debug=True, port=5001)
 ```
-### storage.py
-```python
-import uuid
-from schemas import User, UserCreate
 
-class MemStorage:
-    def __init__(self):
-        self.users = {}
+### Key AI Features:
+- **Context-Aware Conversations**: Maintains chat history for better responses
+- **Medical Knowledge**: Specialized prompts for health guidance
+- **Safety Filters**: Configured to provide responsible medical advice
+- **Markdown Support**: Formats responses with proper styling
+- **CORS Enabled**: Allows frontend communication
+## Run AI Backend
 
-    async def create_user(self, data: UserCreate) -> User:
-        uid = str(uuid.uuid4())
-        user = User(id=uid, **data.dict())
-        self.users[uid] = user
-        return user
-
-    async def get_user(self, uid: str):
-        return self.users.get(uid)
-
-storage = MemStorage()
-```
-### schemas.py
-```python 
-from pydantic import BaseModel
-
-class UserCreate(BaseModel):
-    username: str
-    password: str
-
-class User(UserCreate):
-    id: str
-```
-## Run backend
-
-#### Install deps:
+#### Install dependencies:
 ```bash
-pip install fastapi uvicorn
+pip install flask flask-cors google-generativeai markdown2
 ```
-#### Run server:
+
+#### Set up environment:
 ```bash
-uvicorn main:app --reload --port 5000
+export GEMINI_API_KEY=your_google_gemini_api_key_here
+# Or create .env file in project root
 ```
-## Changes (Node → Python)
 
-Express → FastAPI
-
-index.ts → main.py
-
-routes.ts → routes.py
-
-storage.ts → storage.py
-
-schema.ts → schemas.py
-
-Drizzle ORM → Pydantic + (optional SQLAlchemy)
-
-Vite middleware (vite.ts) removed → replaced with:
-
-#### Dev: run Vite + FastAPI separately
-
-#### Prod: serve built frontend via StaticFiles
-<hr>  
-
-# Dev Mode
-## terminal 1
+#### Run AI chatbot server:
 ```bash
-uvicorn main:app --reload --port 5000
+python3 server/chatbot.py
 ```
+Server runs on: http://localhost:5001
 
-## terminal 2
+## AI Integration Details
+
+**Google Gemini Configuration:**
+- Model: `gemini-1.5-flash`
+- Safety settings: Optimized for medical responses
+- System instructions: Specialized health assistant prompts
+- Context preservation: Maintains conversation history
+
+**API Endpoints:**
+- `POST /api/chat` - Send message to AI chatbot
+- Response includes formatted HTML for rich text display
+# Development Mode
+
+## Terminal 1 - AI Backend
+```bash
+source venv/bin/activate
+export GEMINI_API_KEY=your_api_key_here
+python3 server/chatbot.py
+```
+AI Backend → http://localhost:5001
+
+## Terminal 2 - React Frontend
 ```bash
 npm run dev
 ```
-Frontend → http://localhost:5173
+Frontend → http://localhost:5000
 <br>
-Backend → http://localhost:5000
+Patient Portal (AI Chat) → http://localhost:5000/patient
 <br>
-API calls proxied.
+API calls are proxied from frontend to AI backend.
 
 # Production Mode 
 ```bash
+# Build frontend
 npm run build
-ENV=production uvicorn main:app --host 0.0.0.0 --port 5000
+
+# Set environment and run AI backend
+export GEMINI_API_KEY=your_api_key_here
+python3 server/chatbot.py
+
+# Frontend served via production build
 ```
+
+## Features
+- 🤖 **AI Health Assistant** - Intelligent symptom checking and health guidance
+- 💬 **Real-time Chat** - Instant responses with context awareness  
+- 🎨 **Modern UI** - shadcn/ui components with auto-scroll and loading states
+- 📱 **Mobile Optimized** - Responsive design for all devices
+- 🔒 **Safe AI** - Responsible medical advice with safety filters

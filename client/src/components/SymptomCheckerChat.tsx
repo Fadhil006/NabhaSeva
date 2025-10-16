@@ -46,8 +46,8 @@ const Chatbot: React.FC<ChatbotProps> = ({ chatType }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
-          message: currentInput, 
+        body: JSON.stringify({
+          message: currentInput,
           type: chatType,
           // No longer sending history
         }),
