@@ -10,8 +10,8 @@
 ### 1. Setup Environment
 ```bash
 # Clone the repository
-git clone https://github.com/Fadhil006/SIH-archive.git
-cd SIH-archive
+git clone https://github.com/Fadhil006/NabhaSeva.git
+cd NabhaSeva
 
 # Install Python dependencies
 python3 -m venv venv
