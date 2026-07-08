@@ -1,502 +1,318 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
 import { useState } from "react";
 
+type Role = "patient" | "doctor" | "admin";
+
+const roles: { id: Role; label: string; icon: string; description: string }[] = [
+  { id: "patient", label: "Patient", icon: "personal_injury", description: "Book consultations & records" },
+  { id: "doctor", label: "Doctor", icon: "stethoscope", description: "Manage appointments & patients" },
+  { id: "admin", label: "Admin", icon: "admin_panel_settings", description: "Platform oversight" },
+];
+
+const demoCredentials: Record<Role, { email: string; password: string }> = {
+  patient: { email: "patient@demo.com", password: "patient123" },
+  doctor: { email: "doctor@demo.com", password: "doctor123" },
+  admin: { email: "admin@demo.com", password: "admin123" },
+};
+
 export default function Login() {
   const [, navigate] = useLocation();
   const { toast } = useToast();
-  const [selectedRole, setSelectedRole] = useState<'patient' | 'doctor' | 'admin'>('patient');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [selectedRole, setSelectedRole] = useState<Role>("patient");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
-  const [resetEmail, setResetEmail] = useState('');
-  const [signUpData, setSignUpData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    phone: ''
-  });
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [signUpData, setSignUpData] = useState({ name: "", email: "", phone: "", password: "", confirmPassword: "" });
 
-  const roles = [
-    { id: 'patient' as const, label: 'Patient', icon: 'personal_injury', color: 'bg-blue-100 text-blue-800' },
-    { id: 'doctor' as const, label: 'Doctor', icon: 'stethoscope', color: 'bg-green-100 text-green-800' },
-    { id: 'admin' as const, label: 'Admin', icon: 'admin_panel_settings', color: 'bg-purple-100 text-purple-800' }
-  ];
+  const validEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+  const goToDashboard = (role: Role) => {
+    toast({ title: "Welcome!", description: `Signed in as ${role}.` });
+    navigate(`/${role === "patient" ? "patient" : role}`);
   };
 
-  const validateForm = () => {
-    const newErrors: {[key: string]: string} = {};
-    
-    if (!email) {
-      newErrors.email = 'Email is required';
-    } else if (!validateEmail(email)) {
-      newErrors.email = 'Please enter a valid email';
-    }
-    
-    if (!password) {
-      newErrors.password = 'Password is required';
-    } else if (password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const validateSignUpForm = () => {
-    const newErrors: {[key: string]: string} = {};
-    
-    if (!signUpData.name) newErrors.name = 'Name is required';
-    if (!signUpData.email) {
-      newErrors.email = 'Email is required';
-    } else if (!validateEmail(signUpData.email)) {
-      newErrors.email = 'Please enter a valid email';
-    }
-    if (!signUpData.password) {
-      newErrors.password = 'Password is required';
-    } else if (signUpData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
-    }
-    if (signUpData.password !== signUpData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
-    }
-    if (!signUpData.phone) {
-      newErrors.phone = 'Phone number is required';
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!validateForm()) {
-      toast({
-        title: "Validation Error",
-        description: "Please fix the errors and try again.",
-        variant: "destructive"
-      });
-      return;
-    }
+    const newErrors: Record<string, string> = {};
+    if (!validEmail(email)) newErrors.email = "Please enter a valid email";
+    if (password.length < 6) newErrors.password = "Password must be at least 6 characters";
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length) return;
 
     setLoading(true);
-    
-    // Simulate API call with demo credentials
     setTimeout(() => {
-      const demoCredentials = {
-        'patient@demo.com': 'patient123',
-        'doctor@demo.com': 'doctor123',
-        'admin@demo.com': 'admin123'
-      };
-      
-      const validCredential = Object.entries(demoCredentials).find(
-        ([demoEmail, demoPassword]) => demoEmail === email && demoPassword === password
-      );
-      
-      if (validCredential || email.includes('demo')) {
-        toast({
-          title: "Login Successful",
-          description: `Welcome ${selectedRole}!`,
-        });
-        
-        // Navigate based on role
-        switch (selectedRole) {
-          case 'patient':
-            navigate('/patient');
-            break;
-          case 'doctor':
-            navigate('/doctor');
-            break;
-          case 'admin':
-            navigate('/admin');
-            break;
-        }
+      const demo = demoCredentials[selectedRole];
+      if ((email === demo.email && password === demo.password) || email.includes("demo")) {
+        goToDashboard(selectedRole);
       } else {
         toast({
-          title: "Login Failed",
-          description: "Invalid email or password. Try demo credentials.",
-          variant: "destructive"
+          title: "Login failed",
+          description: "Invalid credentials — use a demo account below.",
+          variant: "destructive",
         });
       }
-      
       setLoading(false);
-    }, 1500);
+    }, 600);
   };
 
-  const handleForgotPassword = () => {
-    setShowForgotPassword(true);
-  };
-
-  const handleResetPassword = () => {
-    if (!resetEmail || !validateEmail(resetEmail)) {
-      toast({
-        title: "Invalid Email",
-        description: "Please enter a valid email address.",
-        variant: "destructive"
-      });
-      return;
-    }
-    
-    toast({
-      title: "Reset Link Sent",
-      description: "Password reset link has been sent to your email.",
-    });
-    setShowForgotPassword(false);
-    setResetEmail('');
+  const handleDemoLogin = (role: Role) => {
+    setSelectedRole(role);
+    setEmail(demoCredentials[role].email);
+    setPassword(demoCredentials[role].password);
+    goToDashboard(role);
   };
 
   const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!validateSignUpForm()) {
-      toast({
-        title: "Validation Error",
-        description: "Please fix the errors and try again.",
-        variant: "destructive"
-      });
-      return;
-    }
-    
-    toast({
-      title: "Account Created",
-      description: "Your account has been created successfully!",
-    });
+    const newErrors: Record<string, string> = {};
+    if (!signUpData.name) newErrors.name = "Name is required";
+    if (!validEmail(signUpData.email)) newErrors.signupEmail = "Please enter a valid email";
+    if (!signUpData.phone) newErrors.phone = "Phone number is required";
+    if (signUpData.password.length < 6) newErrors.signupPassword = "Password must be at least 6 characters";
+    if (signUpData.password !== signUpData.confirmPassword) newErrors.confirmPassword = "Passwords do not match";
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length) return;
+
+    toast({ title: "Account created", description: "You can now sign in with your details." });
     setShowSignUp(false);
-    setSignUpData({
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-      phone: ''
-    });
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">NabhaSeva</h1>
-          <p className="text-gray-600">Sign in to access your healthcare dashboard</p>
-        </div>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl text-center">Sign In</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Demo Credentials Info */}
-            <Card className="bg-blue-50 border-blue-200">
-              <CardContent className="p-3">
-                <div className="text-xs text-blue-800">
-                  <p className="font-semibold mb-1">Demo Credentials:</p>
-                  <p>Patient: patient@demo.com / patient123</p>
-                  <p>Doctor: doctor@demo.com / doctor123</p>
-                  <p>Admin: admin@demo.com / admin123</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Role Selection */}
-            <div>
-              <Label className="text-sm font-medium text-gray-700 mb-3 block">
-                I am a:
-              </Label>
-              <div className="flex gap-2">
-                {roles.map((role) => (
-                  <button
-                    key={role.id}
-                    onClick={() => {
-                      setSelectedRole(role.id);
-                      setErrors({}); // Clear errors when role changes
-                    }}
-                    className={`flex-1 p-3 rounded-lg border-2 transition-all hover-elevate ${
-                      selectedRole === role.id
-                        ? 'border-primary bg-primary/5'
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
-                    data-testid={`role-${role.id}`}
-                  >
-                    <div className="flex flex-col items-center gap-2">
-                      <span className="material-symbols-outlined text-2xl text-primary">
-                        {role.icon}
-                      </span>
-                      <Badge 
-                        className={selectedRole === role.id ? role.color : 'bg-gray-100 text-gray-600'}
-                      >
-                        {role.label}
-                      </Badge>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Login Form */}
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div>
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value);
-                    if (errors.email) setErrors({...errors, email: ''});
-                  }}
-                  className={errors.email ? 'border-red-500' : ''}
-                  data-testid="input-email"
-                />
-                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
-              </div>
-              
-              <div>
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    if (errors.password) setErrors({...errors, password: ''});
-                  }}
-                  className={errors.password ? 'border-red-500' : ''}
-                  data-testid="input-password"
-                />
-                {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
-              </div>
-
-              <Button 
-                type="submit" 
-                className="w-full bg-primary hover:bg-primary/90 text-white"
-                disabled={loading}
-                data-testid="button-login"
-              >
-                {loading ? (
-                  <>
-                    <span className="material-symbols-outlined animate-spin mr-2">refresh</span>
-                    Signing in...
-                  </>
-                ) : (
-                  'Sign In'
-                )}
-              </Button>
-            </form>
-
-            {/* Additional Actions */}
-            <div className="space-y-4">
-              <button
-                onClick={handleForgotPassword}
-                className="w-full text-sm text-primary hover:underline"
-                data-testid="button-forgot-password"
-              >
-                Forgot your password?
-              </button>
-              
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300" />
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">or</span>
-                </div>
-              </div>
-              
-              <Button 
-                variant="outline" 
-                className="w-full"
-                onClick={() => setShowSignUp(true)}
-                data-testid="button-signup"
-              >
-                Create New Account
-              </Button>
-            </div>
-
-            {/* Emergency Contact */}
-            <Card className="bg-red-50 border-red-200">
-              <CardContent className="p-4">
-                <div className="flex items-center gap-3">
-                  <span className="material-symbols-outlined text-red-500">
-                    emergency
-                  </span>
-                  <div>
-                    <p className="text-sm font-medium text-red-800">
-                      Medical Emergency?
-                    </p>
-                    <p className="text-sm text-red-600">
-                      Call 108 for immediate assistance
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </CardContent>
-        </Card>
-
-        {/* Footer */}
-        <div className="text-center mt-6 text-sm text-gray-500">
-          <p>Bridging rural gaps with smart care</p>
-          <p className="mt-1">Available in Hindi & English</p>
+    <div className="min-h-screen bg-background lg:grid lg:grid-cols-2">
+      {/* Brand panel */}
+      <div className="relative hidden overflow-hidden bg-primary lg:block">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-25"
+          style={{
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80')",
+          }}
+        />
+        <div className="relative flex h-full flex-col justify-between p-12">
+          <button className="flex items-center gap-2.5" onClick={() => navigate("/")} data-testid="link-home">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/15 text-white backdrop-blur">
+              <span className="material-symbols-outlined">medical_services</span>
+            </span>
+            <span className="font-[Lexend] text-2xl font-bold text-white">NabhaSeva</span>
+          </button>
+          <div>
+            <h1 className="font-[Lexend] text-4xl font-bold leading-tight text-white">
+              Quality healthcare,
+              <br />
+              one tap away.
+            </h1>
+            <p className="mt-4 max-w-md text-white/80">
+              Serving 173 villages around Nabha with video consultations, AI health guidance and offline health
+              records — in Punjabi, Hindi and English.
+            </p>
+          </div>
+          <p className="text-sm text-white/70">Government of Punjab · Problem Statement SIH 25018</p>
         </div>
       </div>
 
-      {/* Forgot Password Dialog */}
-      <Dialog open={showForgotPassword} onOpenChange={setShowForgotPassword}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Reset Password</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <p className="text-sm text-gray-600">
-              Enter your email address and we'll send you a link to reset your password.
-            </p>
-            <div>
-              <Label htmlFor="reset-email">Email Address</Label>
+      {/* Form panel */}
+      <div className="flex min-h-screen flex-col justify-center px-4 py-10 sm:px-12 lg:min-h-0">
+        <div className="mx-auto w-full max-w-md">
+          <div className="mb-8 flex items-center gap-2.5 lg:hidden">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+              <span className="material-symbols-outlined text-xl">medical_services</span>
+            </span>
+            <span className="font-[Lexend] text-xl font-bold text-foreground">
+              Nabha<span className="text-primary">Seva</span>
+            </span>
+          </div>
+
+          <h2 className="font-[Lexend] text-2xl font-bold text-foreground">Sign in</h2>
+          <p className="mt-1.5 text-sm text-muted-foreground">Choose your role and enter your credentials.</p>
+
+          {/* Role selector */}
+          <div className="mt-6 grid grid-cols-3 gap-2">
+            {roles.map((role) => (
+              <button
+                key={role.id}
+                type="button"
+                onClick={() => setSelectedRole(role.id)}
+                className={`rounded-xl border-2 p-3 text-center transition-colors ${
+                  selectedRole === role.id
+                    ? "border-primary bg-primary/5"
+                    : "border-border hover:border-muted-foreground/40"
+                }`}
+                data-testid={`role-${role.id}`}
+              >
+                <span
+                  className={`material-symbols-outlined text-2xl ${
+                    selectedRole === role.id ? "text-primary" : "text-muted-foreground"
+                  }`}
+                >
+                  {role.icon}
+                </span>
+                <p className="mt-1 text-sm font-semibold text-foreground">{role.label}</p>
+              </button>
+            ))}
+          </div>
+
+          <form onSubmit={handleLogin} className="mt-6 space-y-4">
+            <div className="space-y-1.5">
+              <Label htmlFor="email">Email</Label>
               <Input
-                id="reset-email"
+                id="email"
                 type="email"
-                placeholder="Enter your email"
-                value={resetEmail}
-                onChange={(e) => setResetEmail(e.target.value)}
+                placeholder="you@example.com"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (errors.email) setErrors({ ...errors, email: "" });
+                }}
+                className={errors.email ? "border-destructive" : ""}
+                data-testid="input-email"
               />
+              {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
             </div>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                onClick={() => setShowForgotPassword(false)}
-                className="flex-1"
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={handleResetPassword}
-                className="flex-1 bg-primary hover:bg-primary/90"
-              >
-                Send Reset Link
-              </Button>
+            <div className="space-y-1.5">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (errors.password) setErrors({ ...errors, password: "" });
+                }}
+                className={errors.password ? "border-destructive" : ""}
+                data-testid="input-password"
+              />
+              {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
+            </div>
+            <Button type="submit" className="h-11 w-full text-base" disabled={loading} data-testid="button-login">
+              {loading ? (
+                <>
+                  <span className="material-symbols-outlined mr-2 animate-spin">progress_activity</span>
+                  Signing in…
+                </>
+              ) : (
+                `Sign in as ${roles.find((r) => r.id === selectedRole)?.label}`
+              )}
+            </Button>
+          </form>
+
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs">
+              <span className="bg-background px-3 text-muted-foreground">or try a demo account</span>
             </div>
           </div>
-        </DialogContent>
-      </Dialog>
+
+          <div className="grid grid-cols-3 gap-2">
+            {roles.map((role) => (
+              <Button
+                key={role.id}
+                variant="outline"
+                className="h-auto flex-col gap-1 py-3"
+                onClick={() => handleDemoLogin(role.id)}
+                data-testid={`button-demo-${role.id}`}
+              >
+                <span className="material-symbols-outlined text-primary">{role.icon}</span>
+                <span className="text-xs">Demo {role.label}</span>
+              </Button>
+            ))}
+          </div>
+
+          <p className="mt-6 text-center text-sm text-muted-foreground">
+            New to NabhaSeva?{" "}
+            <button className="font-semibold text-primary hover:underline" onClick={() => setShowSignUp(true)} data-testid="button-signup">
+              Create an account
+            </button>
+          </p>
+
+          <Card className="mt-8 border-red-200 bg-red-50 dark:border-red-900 dark:bg-red-950/40">
+            <CardContent className="flex items-center gap-3 p-4">
+              <span className="material-symbols-outlined text-red-500">emergency</span>
+              <p className="text-sm text-red-700 dark:text-red-300">
+                Medical emergency? Call{" "}
+                <a href="tel:108" className="font-bold underline underline-offset-2">
+                  108
+                </a>{" "}
+                for immediate assistance.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
 
       {/* Sign Up Dialog */}
       <Dialog open={showSignUp} onOpenChange={setShowSignUp}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Create Account</DialogTitle>
+            <DialogTitle>Create account</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSignUp} className="space-y-4">
-            <div>
-              <Label htmlFor="signup-name">Full Name</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="signup-name">Full name</Label>
               <Input
                 id="signup-name"
-                placeholder="Enter your full name"
+                placeholder="Your full name"
                 value={signUpData.name}
-                onChange={(e) => {
-                  setSignUpData({...signUpData, name: e.target.value});
-                  if (errors.name) setErrors({...errors, name: ''});
-                }}
-                className={errors.name ? 'border-red-500' : ''}
+                onChange={(e) => setSignUpData({ ...signUpData, name: e.target.value })}
               />
-              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+              {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
             </div>
-            
-            <div>
+            <div className="space-y-1.5">
               <Label htmlFor="signup-email">Email</Label>
               <Input
                 id="signup-email"
                 type="email"
-                placeholder="Enter your email"
+                placeholder="you@example.com"
                 value={signUpData.email}
-                onChange={(e) => {
-                  setSignUpData({...signUpData, email: e.target.value});
-                  if (errors.email) setErrors({...errors, email: ''});
-                }}
-                className={errors.email ? 'border-red-500' : ''}
+                onChange={(e) => setSignUpData({ ...signUpData, email: e.target.value })}
               />
-              {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+              {errors.signupEmail && <p className="text-xs text-destructive">{errors.signupEmail}</p>}
             </div>
-            
-            <div>
-              <Label htmlFor="signup-phone">Phone Number</Label>
+            <div className="space-y-1.5">
+              <Label htmlFor="signup-phone">Phone number</Label>
               <Input
                 id="signup-phone"
-                placeholder="Enter your phone number"
+                placeholder="+91"
                 value={signUpData.phone}
-                onChange={(e) => {
-                  setSignUpData({...signUpData, phone: e.target.value});
-                  if (errors.phone) setErrors({...errors, phone: ''});
-                }}
-                className={errors.phone ? 'border-red-500' : ''}
+                onChange={(e) => setSignUpData({ ...signUpData, phone: e.target.value })}
               />
-              {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
+              {errors.phone && <p className="text-xs text-destructive">{errors.phone}</p>}
             </div>
-            
-            <div>
-              <Label htmlFor="signup-password">Password</Label>
-              <Input
-                id="signup-password"
-                type="password"
-                placeholder="Enter your password"
-                value={signUpData.password}
-                onChange={(e) => {
-                  setSignUpData({...signUpData, password: e.target.value});
-                  if (errors.password) setErrors({...errors, password: ''});
-                }}
-                className={errors.password ? 'border-red-500' : ''}
-              />
-              {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1.5">
+                <Label htmlFor="signup-password">Password</Label>
+                <Input
+                  id="signup-password"
+                  type="password"
+                  value={signUpData.password}
+                  onChange={(e) => setSignUpData({ ...signUpData, password: e.target.value })}
+                />
+                {errors.signupPassword && <p className="text-xs text-destructive">{errors.signupPassword}</p>}
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="signup-confirm">Confirm</Label>
+                <Input
+                  id="signup-confirm"
+                  type="password"
+                  value={signUpData.confirmPassword}
+                  onChange={(e) => setSignUpData({ ...signUpData, confirmPassword: e.target.value })}
+                />
+                {errors.confirmPassword && <p className="text-xs text-destructive">{errors.confirmPassword}</p>}
+              </div>
             </div>
-            
-            <div>
-              <Label htmlFor="signup-confirm">Confirm Password</Label>
-              <Input
-                id="signup-confirm"
-                type="password"
-                placeholder="Confirm your password"
-                value={signUpData.confirmPassword}
-                onChange={(e) => {
-                  setSignUpData({...signUpData, confirmPassword: e.target.value});
-                  if (errors.confirmPassword) setErrors({...errors, confirmPassword: ''});
-                }}
-                className={errors.confirmPassword ? 'border-red-500' : ''}
-              />
-              {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
-            </div>
-
-            <div className="flex gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setShowSignUp(false)}
-                className="flex-1"
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                className="flex-1 bg-primary hover:bg-primary/90"
-              >
-                Create Account
-              </Button>
-            </div>
+            <Button type="submit" className="w-full">
+              Create account
+            </Button>
           </form>
         </DialogContent>
       </Dialog>

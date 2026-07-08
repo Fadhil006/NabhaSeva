@@ -1,15 +1,25 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
+import { chatWithAssistant } from "./assistant";
 
 export async function registerRoutes(app: Express): Promise<Server> {
-  // put application routes here
-  // prefix all routes with /api
+  app.get("/api/health", (_req, res) => {
+    res.json({ status: "ok", ai: Boolean(process.env.GEMINI_API_KEY) });
+  });
 
-  // use storage to perform CRUD operations on the storage interface
-  // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
+  app.post("/api/chat", async (req, res) => {
+    const { message, history } = req.body ?? {};
+    if (typeof message !== "string" || !message.trim()) {
+      return res.status(400).json({ error: "No message provided" });
+    }
+    try {
+      const reply = await chatWithAssistant(message.trim(), Array.isArray(history) ? history : []);
+      res.json({ reply });
+    } catch (err) {
+      console.error("chat error:", err);
+      res.status(502).json({ error: "The assistant is unavailable right now. Please try again." });
+    }
+  });
 
-  const httpServer = createServer(app);
-
-  return httpServer;
+  return createServer(app);
 }

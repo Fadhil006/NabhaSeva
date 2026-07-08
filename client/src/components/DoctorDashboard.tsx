@@ -2,343 +2,240 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useToast } from "@/hooks/use-toast";
+import { useLocation } from "wouter";
 import { useState } from "react";
 
+const todaysAppointments = [
+  { patient: "Liam Harper", time: "10:00 AM", status: "Completed", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" },
+  { patient: "Olivia Bennett", time: "11:30 AM", status: "In Progress", avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b977?w=100&h=100&fit=crop&crop=face" },
+  { patient: "Noah Carter", time: "1:00 PM", status: "Upcoming", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" },
+];
+
+const statusStyles: Record<string, string> = {
+  Completed: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200",
+  "In Progress": "bg-sky-100 text-sky-800 dark:bg-sky-900 dark:text-sky-200",
+  Upcoming: "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200",
+};
+
+const liveConsultations = [
+  { patient: "Ava Morgan", status: "In Progress", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" },
+  { patient: "Lucas Hayes", status: "Waiting", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face" },
+];
+
+const urgentAppointments = [
+  { patient: "Kavita Singh", age: 52, time: "10:00 AM", symptoms: "Abdominal pain", urgent: true, avatar: "https://images.unsplash.com/photo-1582233479366-6d38bc390a08?w=100&h=100&fit=crop&crop=face" },
+  { patient: "Raj Patel", age: 34, time: "11:15 AM", symptoms: "Chest pain", urgent: false, avatar: "https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=100&h=100&fit=crop&crop=face" },
+];
+
+const notifications = [
+  { icon: "event_available", tint: "text-sky-500", message: "New appointment scheduled with Sophia Clark", time: "1 hour ago" },
+  { icon: "check_circle", tint: "text-emerald-500", message: "Owen Turner has completed check-in", time: "2 hours ago" },
+];
+
+const navItems = [
+  { id: "home", icon: "home", label: "Home" },
+  { id: "appointments", icon: "calendar_month", label: "Appointments" },
+  { id: "patients", icon: "group", label: "Patients" },
+  { id: "prescriptions", icon: "pill", label: "Prescriptions" },
+];
+
 export default function DoctorDashboard() {
-  const [activeTab, setActiveTab] = useState('home');
+  const [, navigate] = useLocation();
+  const [activeTab, setActiveTab] = useState("home");
+  const { toast } = useToast();
 
-  const todaysAppointments = [
-    { 
-      patient: 'Liam Harper', 
-      time: '10:00 AM', 
-      status: 'Completed', 
-      statusColor: 'text-green-600',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face'
-    },
-    { 
-      patient: 'Olivia Bennett', 
-      time: '11:30 AM', 
-      status: 'In Progress', 
-      statusColor: 'text-blue-600',
-      avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b977?w=100&h=100&fit=crop&crop=face'
-    },
-    { 
-      patient: 'Noah Carter', 
-      time: '1:00 PM', 
-      status: 'Upcoming', 
-      statusColor: 'text-orange-600',
-      avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face'
-    }
-  ];
-
-  const liveConsultations = [
-    {
-      patient: 'Ava Morgan',
-      status: 'In Progress',
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
-      borderColor: 'border-blue-500'
-    },
-    {
-      patient: 'Lucas Hayes',
-      status: 'Waiting',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face',
-      borderColor: 'border-gray-300'
-    }
-  ];
-
-  const notifications = [
-    {
-      icon: 'event_available',
-      iconColor: 'text-blue-500',
-      message: 'New appointment scheduled with Sophia Clark',
-      time: '1 hour ago'
-    },
-    {
-      icon: 'check_circle',
-      iconColor: 'text-green-500',
-      message: 'Patient, Owen Turner, has completed their check-in',
-      time: '2 hours ago'
-    }
-  ];
-
-  const urgentAppointments = [
-    {
-      patient: 'Kavita Singh',
-      age: 52,
-      time: '10:00 AM',
-      symptoms: 'Abdominal pain',
-      avatar: 'https://images.unsplash.com/photo-1582233479366-6d38bc390a08?w=100&h=100&fit=crop&crop=face',
-      urgent: true
-    },
-    {
-      patient: 'Raj Patel',
-      age: 34,
-      time: '11:15 AM',
-      symptoms: 'Chest pain',
-      avatar: 'https://images.unsplash.com/photo-1566492031773-4f4e44671d66?w=100&h=100&fit=crop&crop=face',
-      urgent: false
-    }
-  ];
-
-  const navItems = [
-    { id: 'home', icon: 'home', label: 'Home' },
-    { id: 'appointments', icon: 'calendar_month', label: 'Appointments' },
-    { id: 'patients', icon: 'group', label: 'Patients' },
-    { id: 'prescriptions', icon: 'pill', label: 'Prescriptions' },
-    { id: 'settings', icon: 'settings', label: 'Settings' }
-  ];
+  const notImplemented = (title: string) =>
+    toast({ title, description: "This section is part of the product roadmap." });
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="flex min-h-screen flex-col bg-background">
       {/* Header */}
-      <header className="bg-white sticky top-0 z-10 shadow-sm">
-        <div className="flex items-center p-4 justify-between max-w-md mx-auto">
+      <header className="sticky top-0 z-20 border-b bg-background/90 backdrop-blur-md">
+        <div className="mx-auto flex h-16 max-w-4xl items-center justify-between px-4">
           <div className="flex items-center gap-3">
-            <Avatar className="h-10 w-10">
+            <Avatar className="h-10 w-10 border-2 border-primary/20">
               <AvatarImage src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=100&h=100&fit=crop&crop=face" />
-              <AvatarFallback>DE</AvatarFallback>
+              <AvatarFallback>EC</AvatarFallback>
             </Avatar>
             <div>
-              <h1 className="text-gray-500 text-sm font-medium">Welcome back,</h1>
-              <h2 className="text-gray-800 text-xl font-bold">Dr. Ethan</h2>
+              <p className="text-xs text-muted-foreground">Welcome back,</p>
+              <p className="font-[Lexend] font-bold text-foreground">Dr. Ethan Carter</p>
             </div>
           </div>
-          <Button 
-            variant="ghost" 
-            size="icon"
-            onClick={() => console.log('Notifications clicked')}
-            data-testid="button-notifications"
-          >
-            <span className="material-symbols-outlined">notifications</span>
-          </Button>
+          <div className="flex items-center gap-1">
+            <nav className="hidden items-center gap-1 md:flex">
+              {navItems.map((item) => (
+                <Button
+                  key={item.id}
+                  variant={activeTab === item.id ? "secondary" : "ghost"}
+                  size="sm"
+                  onClick={() => (item.id === "home" || item.id === "appointments" ? setActiveTab(item.id) : notImplemented(item.label))}
+                  data-testid={`tab-${item.id}`}
+                >
+                  {item.label}
+                </Button>
+              ))}
+            </nav>
+            <Button variant="ghost" size="icon" onClick={() => notImplemented("Notifications")} data-testid="button-notifications">
+              <span className="material-symbols-outlined">notifications</span>
+            </Button>
+            <Button variant="ghost" size="icon" onClick={() => navigate("/login")} data-testid="button-logout">
+              <span className="material-symbols-outlined">logout</span>
+            </Button>
+          </div>
         </div>
       </header>
 
-      <main className="p-4 space-y-6 pb-20 max-w-md mx-auto">
-        {activeTab === 'home' && (
+      <main className="mx-auto w-full max-w-4xl flex-1 space-y-6 p-4 pb-24 md:pb-8">
+        {activeTab === "home" && (
           <>
-            {/* Today's Status */}
-            <Card>
-              <CardContent className="p-4">
-                <h3 className="text-gray-800 text-lg font-bold mb-2">Today's Status</h3>
-                <div className="flex items-center justify-between text-sm mb-4">
-                  <span className="text-gray-600">
-                    <span className="font-bold text-green-500">3</span> Completed
-                  </span>
-                  <span className="text-gray-600">
-                    <span className="font-bold text-blue-500">1</span> In Progress
-                  </span>
-                  <span className="text-gray-600">
-                    <span className="font-bold text-orange-500">2</span> Upcoming
-                  </span>
-                </div>
-                <Button 
-                  className="w-full bg-primary hover:bg-primary/90 text-white"
-                  onClick={() => console.log('View all appointments clicked')}
-                  data-testid="button-view-appointments"
-                >
-                  View All Appointments
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Today's Appointments */}
-            <div>
-              <h2 className="text-gray-800 text-xl font-bold px-4 pb-3 pt-2">
-                Today's Appointments
-              </h2>
-              <div className="space-y-2">
-                {todaysAppointments.map((appointment, index) => (
-                  <Card key={index} className="hover-elevate cursor-pointer" onClick={() => console.log(`${appointment.patient} appointment clicked`)}>
-                    <CardContent className="p-3 flex items-center justify-between">
-                      <div className="flex flex-col">
-                        <p className="text-gray-800 font-semibold">
-                          {appointment.patient}
-                        </p>
-                        <p className="text-gray-500 text-sm">
-                          {appointment.time} - 
-                          <span className={`font-medium ml-1 ${appointment.statusColor}`}>
-                            {appointment.status}
-                          </span>
-                        </p>
-                      </div>
-                      <Button 
-                        variant={appointment.status === 'In Progress' ? 'default' : 'secondary'}
-                        size="sm"
-                        className={appointment.status === 'In Progress' ? 'bg-primary hover:bg-primary/90 text-white' : ''}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          console.log(`${appointment.status === 'In Progress' ? 'Join Call' : 'View Record'} clicked`);
-                        }}
-                      >
-                        {appointment.status === 'In Progress' ? 'Join Call' : 'View Record'}
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+            {/* Today's status */}
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                { label: "Completed", value: 3, tint: "text-emerald-600" },
+                { label: "In progress", value: 1, tint: "text-sky-600" },
+                { label: "Upcoming", value: 2, tint: "text-amber-600" },
+              ].map((stat) => (
+                <Card key={stat.label}>
+                  <CardContent className="p-4 text-center">
+                    <p className={`font-[Lexend] text-3xl font-extrabold ${stat.tint}`}>{stat.value}</p>
+                    <p className="mt-1 text-xs text-muted-foreground sm:text-sm">{stat.label}</p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
 
-            {/* Live Consultations */}
-            <div>
-              <h2 className="text-gray-800 text-xl font-bold px-4 pb-3 pt-2">
-                Live Consultations
-              </h2>
-              <div className="grid grid-cols-2 gap-4">
-                {liveConsultations.map((consultation, index) => (
-                  <Card key={index} className="hover-elevate cursor-pointer" onClick={() => console.log(`${consultation.patient} consultation clicked`)}>
-                    <CardContent className="p-4 flex flex-col items-center gap-2">
-                      <Avatar className={`h-16 w-16 border-4 ${consultation.borderColor}`}>
-                        <AvatarImage src={consultation.avatar} />
-                        <AvatarFallback>{consultation.patient.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                      </Avatar>
-                      <p className="text-gray-800 font-semibold text-center">
-                        {consultation.patient}
-                      </p>
-                      <p className={`text-sm font-medium ${
-                        consultation.status === 'In Progress' ? 'text-blue-600' : 'text-gray-500'
-                      }`}>
-                        {consultation.status}
-                      </p>
-                      <Button 
-                        size="sm"
-                        className={`w-full mt-2 ${
-                          consultation.status === 'In Progress' 
-                            ? 'bg-primary hover:bg-primary/90 text-white' 
-                            : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
-                        }`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          console.log(`Join ${consultation.patient} consultation`);
-                        }}
-                      >
-                        Join
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-
-            {/* Prescription Writer */}
-            <Card className="hover-elevate cursor-pointer" onClick={() => console.log('Prescription writer clicked')}>
-              <CardContent className="p-4 flex items-center gap-4">
-                <div className="flex-1 flex flex-col gap-2">
-                  <h3 className="text-gray-800 text-lg font-bold">Prescription Writer</h3>
-                  <p className="text-gray-600 text-sm">Quickly create and send prescriptions.</p>
-                  <Button 
-                    variant="secondary" 
-                    size="sm"
-                    className="w-fit mt-2"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      console.log('Write prescription clicked');
-                    }}
-                    data-testid="button-write-prescription"
-                  >
-                    Write Prescription
+            <div className="grid gap-6 md:grid-cols-2">
+              {/* Today's appointments */}
+              <section>
+                <div className="mb-3 flex items-center justify-between">
+                  <h2 className="font-semibold text-foreground">Today's appointments</h2>
+                  <Button variant="ghost" size="sm" onClick={() => setActiveTab("appointments")} data-testid="button-view-appointments">
+                    View all
                   </Button>
                 </div>
-                <div className="w-24 h-24 bg-gray-100 rounded-lg flex items-center justify-center">
-                  <span className="material-symbols-outlined text-4xl text-gray-400">pill</span>
+                <div className="space-y-2">
+                  {todaysAppointments.map((appointment) => (
+                    <Card key={appointment.patient}>
+                      <CardContent className="flex items-center gap-3 p-3">
+                        <Avatar className="h-10 w-10">
+                          <AvatarImage src={appointment.avatar} />
+                          <AvatarFallback>{appointment.patient.split(" ").map((n) => n[0]).join("")}</AvatarFallback>
+                        </Avatar>
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate font-medium text-foreground">{appointment.patient}</p>
+                          <p className="text-xs text-muted-foreground">{appointment.time}</p>
+                        </div>
+                        <Badge variant="secondary" className={statusStyles[appointment.status]}>
+                          {appointment.status}
+                        </Badge>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
-              </CardContent>
-            </Card>
+              </section>
 
-            {/* Recent Notifications */}
-            <div>
-              <h2 className="text-gray-800 text-xl font-bold px-4 pb-3 pt-2">
-                Recent Notifications
-              </h2>
+              {/* Live consultations */}
+              <section>
+                <h2 className="mb-3 font-semibold text-foreground">Live consultations</h2>
+                <div className="grid grid-cols-2 gap-3">
+                  {liveConsultations.map((consultation) => (
+                    <Card key={consultation.patient}>
+                      <CardContent className="flex flex-col items-center gap-2 p-4">
+                        <Avatar
+                          className={`h-14 w-14 border-4 ${
+                            consultation.status === "In Progress" ? "border-sky-400" : "border-muted"
+                          }`}
+                        >
+                          <AvatarImage src={consultation.avatar} />
+                          <AvatarFallback>{consultation.patient.split(" ").map((n) => n[0]).join("")}</AvatarFallback>
+                        </Avatar>
+                        <p className="text-center text-sm font-semibold text-foreground">{consultation.patient}</p>
+                        <p className={`text-xs font-medium ${consultation.status === "In Progress" ? "text-sky-600" : "text-muted-foreground"}`}>
+                          {consultation.status}
+                        </p>
+                        <Button
+                          size="sm"
+                          variant={consultation.status === "In Progress" ? "default" : "secondary"}
+                          className="w-full"
+                          onClick={() => toast({ title: "Joining call", description: `Connecting to ${consultation.patient}…` })}
+                        >
+                          <span className="material-symbols-outlined mr-1 text-base">videocam</span>
+                          Join
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+
+                {/* Prescription writer */}
+                <Card className="mt-3">
+                  <CardContent className="flex items-center gap-4 p-4">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-violet-100 text-violet-700">
+                      <span className="material-symbols-outlined">prescriptions</span>
+                    </span>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-foreground">Prescription writer</h3>
+                      <p className="text-sm text-muted-foreground">Create and send e-prescriptions.</p>
+                    </div>
+                    <Button variant="outline" size="sm" onClick={() => notImplemented("Prescription writer")} data-testid="button-write-prescription">
+                      Write
+                    </Button>
+                  </CardContent>
+                </Card>
+              </section>
+            </div>
+
+            {/* Notifications */}
+            <section>
+              <h2 className="mb-3 font-semibold text-foreground">Recent notifications</h2>
               <div className="space-y-2">
-                {notifications.map((notification, index) => (
-                  <Card key={index} className="hover-elevate cursor-pointer" onClick={() => console.log('Notification clicked')}>
-                    <CardContent className="p-3 flex items-start gap-3">
-                      <div className="flex-shrink-0 pt-1">
-                        <span className={`material-symbols-outlined ${notification.iconColor}`}>
-                          {notification.icon}
-                        </span>
-                      </div>
-                      <div className="flex flex-col">
-                        <p className="text-gray-800 text-sm">
-                          {notification.message}
-                        </p>
-                        <p className="text-gray-400 text-xs">
-                          {notification.time}
-                        </p>
+                {notifications.map((notification) => (
+                  <Card key={notification.message}>
+                    <CardContent className="flex items-start gap-3 p-3.5">
+                      <span className={`material-symbols-outlined ${notification.tint}`}>{notification.icon}</span>
+                      <div>
+                        <p className="text-sm text-foreground">{notification.message}</p>
+                        <p className="text-xs text-muted-foreground">{notification.time}</p>
                       </div>
                     </CardContent>
                   </Card>
                 ))}
               </div>
-            </div>
+            </section>
           </>
         )}
 
-        {activeTab === 'appointments' && (
+        {activeTab === "appointments" && (
           <>
-            {/* Appointments Header */}
-            <div className="flex items-center justify-between mb-6">
-              <Button 
-                variant="ghost"
-                size="icon"
-                onClick={() => setActiveTab('home')}
-                data-testid="button-back-appointments"
-              >
-                <span className="material-symbols-outlined">arrow_back_ios_new</span>
-              </Button>
-              <h1 className="flex-1 text-center text-xl font-bold text-gray-800">
-                Appointments
-              </h1>
-              <div className="w-10"></div>
+            <div>
+              <h2 className="font-[Lexend] text-xl font-bold text-foreground">Appointments</h2>
+              <p className="mt-1 text-sm text-muted-foreground">Manage consultations and join virtual appointments.</p>
             </div>
-
-            <p className="text-center text-sm text-gray-500 mb-6">
-              Manage your upcoming consultations and join virtual appointments.
-            </p>
-
-            <h2 className="text-lg font-bold text-gray-800 mb-4">Today's Appointments</h2>
-
-            <div className="space-y-4">
-              {urgentAppointments.map((appointment, index) => (
-                <Card 
-                  key={index} 
-                  className={`hover-elevate cursor-pointer ${
-                    appointment.urgent ? 'border-l-4 border-l-red-500 bg-red-50' : ''
-                  }`}
-                  onClick={() => console.log(`${appointment.patient} appointment clicked`)}
-                >
-                  <CardContent className="p-4 flex items-center gap-4">
-                    <Avatar className="h-16 w-16">
+            <div className="space-y-3">
+              {urgentAppointments.map((appointment) => (
+                <Card key={appointment.patient} className={appointment.urgent ? "border-l-4 border-l-red-500" : ""}>
+                  <CardContent className="flex items-center gap-4 p-4">
+                    <Avatar className="h-14 w-14">
                       <AvatarImage src={appointment.avatar} />
-                      <AvatarFallback>{appointment.patient.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      <AvatarFallback>{appointment.patient.split(" ").map((n) => n[0]).join("")}</AvatarFallback>
                     </Avatar>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between">
-                        <p className="text-base font-bold text-gray-800">
-                          {appointment.patient}
-                        </p>
-                        <p className={`text-sm font-medium ${
-                          appointment.urgent ? 'text-red-500' : 'text-gray-600'
-                        }`}>
-                          {appointment.time}
-                        </p>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <p className="font-bold text-foreground">{appointment.patient}</p>
+                        {appointment.urgent && (
+                          <Badge variant="secondary" className="bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300">
+                            Urgent
+                          </Badge>
+                        )}
                       </div>
-                      <p className="text-sm text-gray-600">Age: {appointment.age}</p>
-                      <p className={`text-sm ${
-                        appointment.urgent ? 'text-red-600' : 'text-gray-600'
-                      }`}>
-                        Symptoms: {appointment.symptoms}
+                      <p className="text-sm text-muted-foreground">
+                        Age {appointment.age} · {appointment.symptoms}
                       </p>
+                      <p className="text-sm font-medium text-foreground">{appointment.time}</p>
                     </div>
-                    <Button 
-                      className="bg-primary hover:bg-primary/90 text-white"
-                      size="sm"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        console.log(`Join video call with ${appointment.patient}`);
-                      }}
-                    >
+                    <Button size="sm" onClick={() => toast({ title: "Joining call", description: `Connecting to ${appointment.patient}…` })}>
                       <span className="material-symbols-outlined mr-1 text-base">videocam</span>
                       Join
                     </Button>
@@ -350,26 +247,23 @@ export default function DoctorDashboard() {
         )}
       </main>
 
-      {/* Bottom Navigation */}
-      <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200">
-        <div className="flex justify-around items-center px-4 py-2 max-w-md mx-auto">
+      {/* Mobile bottom navigation */}
+      <footer className="fixed bottom-0 left-0 right-0 z-20 border-t bg-background/95 backdrop-blur md:hidden">
+        <nav className="mx-auto flex max-w-md items-center justify-around py-1.5">
           {navItems.map((item) => (
             <button
               key={item.id}
-              className={`flex flex-col items-center justify-center gap-1 hover-elevate ${
-                activeTab === item.id ? 'text-primary' : 'text-gray-500'
+              className={`flex w-1/4 flex-col items-center gap-0.5 rounded-lg py-1.5 ${
+                activeTab === item.id ? "text-primary" : "text-muted-foreground"
               }`}
-              onClick={() => {
-                setActiveTab(item.id);
-                console.log(`${item.label} nav clicked`);
-              }}
+              onClick={() => (item.id === "home" || item.id === "appointments" ? setActiveTab(item.id) : notImplemented(item.label))}
               data-testid={`nav-${item.id}`}
             >
-              <span className="material-symbols-outlined">{item.icon}</span>
-              <p className="text-xs font-medium">{item.label}</p>
+              <span className="material-symbols-outlined text-2xl">{item.icon}</span>
+              <p className="text-[11px] font-medium">{item.label}</p>
             </button>
           ))}
-        </div>
+        </nav>
       </footer>
     </div>
   );
